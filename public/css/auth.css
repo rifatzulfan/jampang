@@ -1,0 +1,56 @@
+.logo-2 {
+  padding: 12px 16px !important;
+  background-color: #fff;
+  border-radius: 99999px;
+  box-sizing: border-box;
+}
+
+.navbar a {
+  margin: 0;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.auth {
+  margin-top: 100px;
+}
+
+.card-auth {
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #fff;
+  max-width: 450px;
+}
+
+.form-login button {
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form-register button {
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.forgot-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+.img-auth {
+  width: 100%;
+  height: 100px;
+  bottom: 0px;
+  position: fixed;
+}
+
+.img-reg {
+  width: 100%;
+  height: 100px;
+  bottom: 0px;
+  margin-top: 132px;
+}

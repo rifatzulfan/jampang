@@ -1,0 +1,19 @@
+.success-page {
+  margin-top: 142px;
+  margin-bottom: 144px;
+}
+
+.wrapper {
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 0;
+}
+
+.success-card {
+    padding: 48px 24px;
+    max-width: 560px;
+  }
+
+  .img-success{
+    display: flex;
+  }

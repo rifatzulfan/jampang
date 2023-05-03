@@ -1,0 +1,167 @@
+/* HERO SECTION */
+
+section.hero {
+  background-color: var(--primary-color);
+}
+
+.hero-heading {
+  padding-top: 148px;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 62px;
+}
+
+.hero-action .btn-primary {
+  width: 70%;
+}
+
+.hero-title {
+  display: inline-block;
+  max-width: 420px;
+}
+
+.hero-subtitle {
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  text-align: center;
+}
+
+.hero-action {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: end;
+  max-width: 420px;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+/* HERO SECTION */
+
+/* JADWAL SECTION */
+
+.jadwal-wrap {
+  padding: 25px 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  z-index: 99;
+  top: 520px;
+  position: absolute;
+}
+
+/* JADWAL SECTION */
+
+/* ALUR SECTION */
+
+section.alurjadwal {
+  margin-top: 900px;
+  padding: 64px 0;
+  background-color: #313943;
+  color: #fff;
+  position: relative;
+}
+
+.img-alur {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 50%;
+}
+
+.alur h2 {
+  padding: 4px 16px;
+  background-color: #444c55;
+  border-radius: 99px;
+  margin-right: 38px;
+  height: 44px;
+  width: 44px;
+}
+
+.alur {
+  margin-bottom: 32px;
+}
+
+/* ALUR PEMINJAMAN */
+
+.sop {
+  padding: 64px 0px;
+}
+
+.sop-card {
+  padding: 16px;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.faq {
+  padding: 64px 0;
+}
+
+.faq-card {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+}
+
+.faq-card h2 {
+  padding: 4px 16px;
+  background-color: #f3f3f3;
+  border-radius: 99px;
+  margin-right: 38px;
+  height: 44px;
+  width: 44px;
+}
+
+@media screen and (max-width: 600px) {
+  .hero-heading {
+    display: block;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 62px;
+  }
+  .jadwal-wrap {
+    padding: 16px;
+    position: relative;
+    top: 12px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+  .section-heading p {
+    font-size: 16px;
+  }
+
+  .hero-title {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .hero-subtitle {
+    max-width: 420px;
+    margin-bottom: 24px;
+  }
+  .hero-subtitle p {
+    font-size: 18px;
+  }
+
+  .hero-action {
+    align-items: center;
+    width: 100%;
+  }
+
+  section.alurjadwal {
+    margin-top: 42px;
+  }
+  .img-alur {
+    width: 100%;
+  }
+}
