@@ -25,20 +25,32 @@
                 <div class="rectangle"></div>
             </div>
             <div class="form-login">
-                <form class="mb-4" action="">
+                <form class="mb-4" action="/login" method="POST">
+                    @csrf
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="email">Email</label>
                         </p>
-                        <input id="email" class="input-custom" type="text" placeholder="Masukan alamat email anda" />
+                        <input id="email" name="email" class="input-custom @error('email') is-invalid @enderror" type="text" placeholder="Masukan alamat email anda" />
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="password">Password</label>
                         </p>
-                        <input id="password" class="input-custom" type="password" placeholder="Masukan password anda" />
+                        <input id="password" name="password" class="input-custom  @error('password') is-invalid @enderror" type="password" placeholder="Masukan password anda" />
+                        @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
-                    <button type="submit" class="btn-primary-2 mt-2">Masuk</button>
+                    <input type="submit" value="Masuk" class="btn-primary-2 mt-2">
+
                 </form>
                 <div class="forgot-password mt-5">
                     <p class="message">Belum punya Akun?<a href="/register"> Daftar</a></p>

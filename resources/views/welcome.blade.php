@@ -32,10 +32,17 @@
                     <a class="link" href="#contact">Contact</a>
                 </li>
             </ul>
+            @auth
+            <div style="width: 205px; text-align: end" class="my-4 my-lg-0">
+                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard' : '/dashboard-admin' }}" class="profile-home">{{ auth()->user()->name }}</a>
+            </div>
+            @endauth
+            @guest
             <div class="my-4 my-lg-0">
                 <a href="/register" class="btn-secondarie mx-2"> Register </a>
-                <a href="#" class="btn-primarie"> Login </a>
+                <a href="/login" class="btn-primarie"> Login </a>
             </div>
+            @endguest
         </div>
     </div>
 </nav>
@@ -58,7 +65,7 @@
             <div class="hero-action text-center">
                 <a href="" class="btn-primary mb-2">Mulai Pinjam</a>
                 <a href="" class="btn-secondary">Lihat Alur Peminjaman
-                    <img src="assets/img/Arrow - bottom.svg" alt="" class="ml-2" />
+                    <img src="{{asset('images/Arrow - bottom.svg')}}" alt="" class="ml-2" />
                 </a>
             </div>
         </div>
@@ -69,7 +76,7 @@
 <section id="jadwal" class="jadwal">
     <div class="container">
         <div class="jadwal-wrap">
-            <div class="section-heading">
+            <div class="section-heading" style="padding:0;">
                 <h2>Jadwal Peminjaman</h2>
                 <div class="rectangle"></div>
                 <p>Jadwal Peminjaman Lapangan</p>

@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
-
+use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,5 +22,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+});
+Route::post('/logout', function () {
+    auth()->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+})->name('logout')->middleware('auth');
+
+Route::get('/dashboard-admin', [DashboardController::class, 'index'])->name('dashboard-admin')->middleware('auth', 'role:Admin,Superadmin');
+Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard')->middleware('auth', 'role:User');
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');

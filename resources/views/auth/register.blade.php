@@ -25,38 +25,64 @@
                 <div class="rectangle"></div>
             </div>
             <div class="form-register">
-                <form class="mb-4" action="">
+                <form class="mb-4" action="" method="POST">
+                    @csrf
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="name">Nama</label>
                         </p>
-                        <input id="name" class="input-custom" type="text" placeholder="Masukan nama kamu" />
+                        <input id="name" name="name" class="input-custom  @error('name') is-invalid @enderror" type="text" placeholder="Masukan nama kamu" value="{{ old('name') }}" />
+                        @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="email">Email</label>
                         </p>
-                        <input id="email" class="input-custom" type="text" placeholder="Masukan alamat email kamu" />
+                        <input id="email" name="email" class="input-custom @error('email') is-invalid @enderror" type="text" placeholder="Masukan alamat email kamu" value="{{ old('email') }}" />
+                        @error('email')
+                        <div class=" invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="phone">No Telepon</label>
                         </p>
-                        <input id="phone" class="input-custom" type="text" placeholder="Masukan nomor hp kamu" />
+                        <input id="phone" name="phone" class="input-custom @error('phone') is-invalid @enderror" type="text" placeholder="Masukan nomor hp kamu" value="{{ old('phone') }}" />
+                        @error('phone')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="input mb-3">
                         <p class="mb-2">
                             <label for="password">Password</label>
                         </p>
-                        <input id="password" class="input-custom" type="password" placeholder="Masukan password kamu" />
+                        <input id="password" name="password" class="input-custom @error('password') is-invalid @enderror" type="password" placeholder="Masukan password kamu" />
+                        @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="input mb-3">
                         <p class="mb-2">
-                            <label for="password">Konfirmasi Password</label>
+                            <label for="password_confirmation">Konfirmasi Password</label>
                         </p>
-                        <input id="password" class="input-custom" type="password" placeholder="Konfirmasi password kamu" />
+                        <input id="password_confirmation" name="password_confirmation" class="input-custom  @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Konfirmasi password kamu" />
+                        @error('password_confirmation')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
-                    <button type="submit" class="btn-primary-2 mt-2">Daftar</button>
+                    <input type="submit" value="Daftar" class="btn-primary-2 mt-2">
                 </form>
                 <div class="forgot-password mt-5">
                     <p class="message">Sudah punya Akun?<a href="/login"> Masuk</a></p>
