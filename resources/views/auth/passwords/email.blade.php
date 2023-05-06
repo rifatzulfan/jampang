@@ -19,13 +19,18 @@
 <section class="auth">
     <div class="container">
         <div class="card-auth mx-auto">
-            <div class="header-auth mb-5">
-                <h2 class="mb-3">Masuk</h2>
-                <p>Masuk dulu guys baru langkah selanjutnya</p>
+            <div class="header-auth mb-4">
+                <h2 class="mb-3">Verifikasi</h2>
+                <p>kirim email yang lupa passwordnya dulu guys baru langkah selanjutnya</p>
                 <div class="rectangle"></div>
             </div>
+            @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+            @endif
             <div class="form-login">
-                <form class="mb-4" action="/login" method="POST">
+                <form class="mb-4" action="{{ route('password.email') }}" method="POST">
                     @csrf
                     <div class="input mb-3">
                         <p class="mb-2">
@@ -38,27 +43,8 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="input mb-3">
-                        <p class="mb-2">
-                            <label for="password">Password</label>
-                        </p>
-                        <input id="password" name="password" class="input-custom  @error('password') is-invalid @enderror" type="password" placeholder="Masukan password anda" />
-                        @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                    <input type="submit" value="Masuk" class="btn-primary-2 mt-2">
-
+                    <input type="submit" value="Kirim" class="btn-primary-2 mt-2">
                 </form>
-                <div class="forgot-password mt-5">
-                    <p class="message">Belum punya Akun?<a href="/register"> Daftar</a></p>
-                    <hr />
-                    <a style="color: #4d5154; text-decoration: none" href="/password">
-                        <p>Lupa Password</p>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
