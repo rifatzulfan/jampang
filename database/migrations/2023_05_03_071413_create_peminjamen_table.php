@@ -20,10 +20,10 @@ return new class extends Migration
             $table->bigInteger('kegunaan_id')->unsigned();
 
             $table->string('surat');
+            $table->string('status')->default(0);
             $table->date('tanggal');
             $table->string('jammulai');
             $table->string('jamselesai');
-            $table->string('status')->default(0);
 
             $table->softDeletes();
             $table->timestamps();
