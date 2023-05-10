@@ -34,7 +34,7 @@
             </ul>
             @auth
             <div style="width: 205px; text-align: end" class="my-4 my-lg-0">
-                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard' : '/dashboard-admin' }}" class="profile-home">{{ auth()->user()->name }}</a>
+                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard' : '/dashboard-admin/peminjaman' }}" class="profile-home">{{ auth()->user()->name }}</a>
             </div>
             @endauth
             @guest
@@ -63,8 +63,8 @@
                 <div class="rectangle"></div>
             </div>
             <div class="hero-action text-center">
-                <a href="" class="btn-primary mb-2">Mulai Pinjam</a>
-                <a href="" class="btn-secondary">Lihat Alur Peminjaman
+                <a href="{{route('form-peminjaman.index')}}" class="btn-primary mb-2">Mulai Pinjam</a>
+                <a href="#alur" class="btn-secondary">Lihat Alur Peminjaman
                     <img src="{{asset('images/Arrow - bottom.svg')}}" alt="" class="ml-2" />
                 </a>
             </div>
@@ -310,4 +310,35 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: "dayGridMonth",
+        });
+        calendar.render();
+    });
+
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var scroll = $(window).scrollTop();
+            if (scroll > 0) {
+                $("#navbar").addClass("navbar-scrolled");
+                $(".logo").addClass("logo-scrolled");
+                $(".link").addClass("navlink-scrolled");
+                $(".btn-primarie").addClass("btn-primarie-scrolled");
+                $(".btn-secondarie").addClass("btn-secondarie-scrolled");
+                $(".profile-home").addClass("profile");
+            } else {
+                $("#navbar").removeClass("navbar-scrolled");
+                $(".logo").removeClass("logo-scrolled");
+                $(".link").removeClass("navlink-scrolled");
+                $(".btn-primarie").removeClass("btn-primarie-scrolled");
+                $(".btn-secondarie").removeClass("btn-secondarie-scrolled");
+                $(".profile-home").removeClass("profile");
+            }
+        });
+    });
+</script>
 @endsection

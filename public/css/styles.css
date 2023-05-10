@@ -1,498 +1,502 @@
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Satoshi", sans-serif;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Satoshi", sans-serif;
+    box-sizing: border-box;
 }
 
 :root {
-  --primary-color: #0b5eb1;
-  --base-color: #222222;
+    --primary-color: #0b5eb1;
+    --base-color: #222222;
 }
 
 body {
-  background-color: #f3f3f3 !important;
+    background-color: #f3f3f3 !important;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 h1 {
-  font-weight: 900 !important;
-  font-size: 48px;
-  line-height: 65px;
+    font-weight: 900 !important;
+    font-size: 48px;
+    line-height: 65px;
 }
 
 h2 {
-  font-weight: 700 !important;
-  font-size: 32px;
-  margin: 0;
+    font-weight: 700 !important;
+    font-size: 32px;
+    margin: 0;
 }
 
 h3 {
-  font-size: 24px;
-  font-weight: 700 !important;
+    font-size: 24px;
+    font-weight: 700 !important;
 }
 
 p {
-  font-size: 20px;
-  font-weight: 400 !important;
+    font-size: 20px;
+    font-weight: 400 !important;
+}
+
+.alert p {
+    margin-bottom: 0px !important;
 }
 
 button:disabled {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .btn-secondary {
-  padding: 16px 24px;
-  background-color: transparent;
-  border: #fff solid 1px;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: #fff solid 1px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 .btn-primary {
-  padding: 16px 24px;
-  background-color: #fff;
-  border: var(--primary-color) solid 1px;
-  color: var(--primary-color);
-  font-size: 20px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: #fff;
+    border: var(--primary-color) solid 1px;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 .btn-primary-2 {
-  padding: 16px 24px;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 500 !important;
-  border: none;
-  text-decoration: none;
-  border-radius: 8px;
-  width: 100%;
+    padding: 16px 24px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500 !important;
+    border: none;
+    text-decoration: none;
+    border-radius: 8px;
+    width: 100%;
 }
 
 .rectangle {
-  background: linear-gradient(270deg, #b47654 7.05%, #212529 89.3%);
-  height: 8px;
-  width: 100%;
-  align-self: stretch;
-  flex-grow: 0;
+    background: linear-gradient(270deg, #b47654 7.05%, #212529 89.3%);
+    height: 8px;
+    width: 100%;
+    align-self: stretch;
+    flex-grow: 0;
 }
 
 .rectangle-2 {
-  width: 8px;
-  height: 100%;
-  background: linear-gradient(360deg, #b47654 2.55%, #3788d8 100%);
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(360deg, #b47654 2.55%, #3788d8 100%);
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
 }
 
 /*NAVBAR */
 
 .logo-scrolled path {
-  fill: var(--base-color);
+    fill: var(--base-color);
 }
 
 .navlink-scrolled {
-  color: #222222 !important;
-  text-decoration: none;
+    color: #222222 !important;
+    text-decoration: none;
 }
 
 .link {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 ul li a {
-  padding: 0 16px !important;
+    padding: 0 16px !important;
 }
 
 nav ul li a:hover {
-  font-style: italic;
-  text-decoration: underline;
+    font-style: italic;
+    text-decoration: underline;
 }
 
 .py-24 {
-  padding: 16px 0 !important;
+    padding: 16px 0 !important;
 }
 
 .btn-secondarie {
-  padding: 16px 24px;
-  background-color: transparent;
-  border: #fff solid 1px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: #fff solid 1px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 nav .btn-secondarie {
-  padding: 16px 24px;
-  background-color: transparent;
-  border: #fff solid 1px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: #fff solid 1px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 nav .btn-primarie {
-  padding: 16px 24px;
-  background-color: #fff;
-  border: #fff solid 1px;
-  color: var(--primary-color);
-  font-size: 16px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: #fff;
+    border: #fff solid 1px;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 nav .btn-secondarie-scrolled {
-  padding: 16px 24px;
-  background-color: transparent;
-  border: var(--primary-color) solid 1px;
-  color: var(--primary-color);
-  font-size: 16px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: var(--primary-color) solid 1px;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 nav .btn-primarie-scrolled {
-  padding: 16px 24px;
-  background-color: var(--primary-color);
-  border: #fff solid 1px;
-  color: white;
-  font-size: 16px;
-  font-weight: 500 !important;
-  text-decoration: none;
-  border-radius: 8px;
+    padding: 16px 24px;
+    background-color: var(--primary-color);
+    border: #fff solid 1px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
 .navbar {
-  transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .navbar-scrolled {
-  background-color: white;
+    background-color: white;
 }
 
 /*NAVBAR */
 
 .section-heading {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center !important;
-  margin-bottom: 24px;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center !important;
+    margin-bottom: 24px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
 }
 
 .section-heading .rectangle {
-  width: 70%;
-  margin: 16px 0;
+    width: 70%;
+    margin: 16px 0;
 }
 
 .section-heading h2 {
-  width: 700px;
-  margin-bottom: 0;
+    width: 700px;
+    margin-bottom: 0;
 }
 .section-heading h3 {
-  width: 700px;
-  margin-bottom: 0;
+    width: 700px;
+    margin-bottom: 0;
 }
 
 .section-heading p {
-  width: 500px;
-  text-align: end;
-  margin-bottom: 0;
+    width: 500px;
+    text-align: end;
+    margin-bottom: 0;
 }
 
 .section-heading a {
-  text-decoration: none;
-  color: #222222;
+    text-decoration: none;
+    color: #222222;
 }
 
 footer {
-  background-color: #313943;
+    background-color: #313943;
 }
 
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 24px 0;
 }
 
 .footer a {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 .footer-section {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  z-index: -999;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: -999;
 }
 
 .contact .btn-secondary {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .input-custom {
-  outline: 1;
-  outline-color: #0b5eb1;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  border-radius: 8px;
-  padding: 16px;
-  box-sizing: border-box;
-  font-size: 16px;
+    outline: 1;
+    outline-color: #0b5eb1;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 .profile {
-  font-weight: 500;
-  text-decoration: none;
-  font-size: 18px;
-  color: #222222 !important;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 18px;
+    color: #222222 !important;
 }
 
 .profile-home {
-  font-weight: 500;
-  text-decoration: none;
-  font-size: 18px;
-  color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
 }
 
 select {
-  /* Reset Select */
-  appearance: none;
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  /* Personalize */
-  flex: 1;
-  padding: 0 1em;
-  background-color: var(--primary-color);
-  background-image: none;
-  cursor: pointer;
+    /* Reset Select */
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    background-color: var(--primary-color);
+    background-image: none;
+    cursor: pointer;
 }
 /* Remove IE arrow */
 select::-ms-expand {
-  display: none;
+    display: none;
 }
 /* Custom Select wrapper */
 .select {
-  position: relative;
-  display: flex;
-  border-radius: 0.25em;
-  overflow: hidden;
+    position: relative;
+    display: flex;
+    border-radius: 0.25em;
+    overflow: hidden;
 }
 /* Arrow */
 .select::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
-  transition: 0.25s all ease;
-  pointer-events: none;
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    transition: 0.25s all ease;
+    pointer-events: none;
 }
 
 [type="file"]::-webkit-file-upload-button {
-  border-radius: 8px;
-  border: none;
-  background-color: #c8c8c8;
-  cursor: pointer;
-  font-size: 12px;
-  outline: none;
-  padding: 10px 25px;
-  transition: all 1s ease;
-  display: inline-flex;
+    border-radius: 8px;
+    border: none;
+    background-color: #c8c8c8;
+    cursor: pointer;
+    font-size: 12px;
+    outline: none;
+    padding: 10px 25px;
+    transition: all 1s ease;
+    display: inline-flex;
 }
 
 hr {
-  background-color: #f3f3f3;
+    background-color: #f3f3f3;
 }
 
 /* Define the styles for the scroll bar */
 
 ::-webkit-scrollbar {
-  width: 10px; /* Width of the scroll bar */
+    width: 10px; /* Width of the scroll bar */
 }
 
 /* Define the background color of the scroll bar */
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  border-radius: 8px; /* Border radius of the scroll bar */
+    background-color: #f1f1f1;
+    border-radius: 8px; /* Border radius of the scroll bar */
 }
 
 /* Define the appearance of the scroll thumb */
 
 ::-webkit-scrollbar-thumb {
-  background-color: #484848;
-  border-radius: 8px; /* Border radius of the scroll thumb */
+    background-color: #484848;
+    border-radius: 8px; /* Border radius of the scroll thumb */
 }
 
 /* Define the appearance of the scroll thumb when hovering over it */
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #6e6e6e;
+    background-color: #6e6e6e;
 }
 
 /* Define the appearance of the scroll thumb when it's being dragged */
 
 ::-webkit-scrollbar-thumb:active {
-  background-color: #222222;
+    background-color: #222222;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #f2f2f2 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #f2f2f2 inset !important;
 }
 
 @media screen and (max-width: 600px) {
-  .footer {
-    display: block;
-  }
+    .footer {
+        display: block;
+    }
 
-  .footer-section {
-    position: relative;
-    width: 100%;
-    bottom: 0;
-    z-index: -999;
-  }
+    .footer-section {
+        position: relative;
+        width: 100%;
+        bottom: 0;
+        z-index: -999;
+    }
 
-  .section-heading .rectangle {
-    display: none;
-  }
+    .section-heading .rectangle {
+        display: none;
+    }
 
-  p {
-    font-size: 16px;
-    font-weight: 400 !important;
-  }
+    p {
+        font-size: 16px;
+        font-weight: 400 !important;
+    }
 }
 
 /* DROPDOWN */
 
 .dropdown {
-  display: inline-block;
-  position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .dd-button {
-  display: inline-block;
-  border: none;
-  border-radius: 8px;
-  padding: 16px 30px 16px 16px;
-  background-color: #f3f3f3;
-  cursor: pointer;
-  white-space: nowrap;
-  font-size: 18px;
-  height: 57px;
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 30px 16px 16px;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 18px;
+    height: 57px;
 }
 
 .dd-button:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid black;
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
 }
 
 .dd-button:hover {
-  background-color: #eeeeee;
+    background-color: #eeeeee;
 }
 
 .dd-input {
-  display: none;
+    display: none;
 }
 
 .dd-menu {
-  position: absolute;
-  top: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0;
-  margin: 8px 0 0 0;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  list-style-type: none;
-  width: 200px;
-  z-index: 99999;
+    position: absolute;
+    top: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0;
+    margin: 8px 0 0 0;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    list-style-type: none;
+    width: 200px;
+    z-index: 99999;
 }
 
 .dd-input + .dd-menu {
-  display: none;
+    display: none;
 }
 
 .dd-input:checked + .dd-menu {
-  display: block;
+    display: block;
 }
 
 .dd-menu li {
-  padding: 10px 20px;
-  cursor: pointer;
-  white-space: nowrap;
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 .dd-menu li:hover {
-  background-color: #f6f6f6;
+    background-color: #f6f6f6;
 }
 
 .dd-menu li a {
-  display: block;
-  margin: -10px -20px;
-  padding: 10px 20px;
+    display: block;
+    margin: -10px -20px;
+    padding: 10px 20px;
 }
 
 .dd-menu p {
-  font-size: 16px;
-  display: block;
-  margin: 0;
-  padding: 10px 20px;
+    font-size: 16px;
+    display: block;
+    margin: 0;
+    padding: 10px 20px;
 }
 
 .dd-menu li.divider {
-  padding: 0;
-  border-bottom: 1px solid #cccccc;
+    padding: 0;
+    border-bottom: 1px solid #cccccc;
 }
 
 @media screen and (max-width: 600px) {
-  .jadwal-wrap {
-    padding: 16px;
-  }
-  .section-heading h2 {
-    font-size: 20px;
-  }
-  .section-heading p {
-    font-size: 16px;
-  }
+    .jadwal-wrap {
+        padding: 16px;
+    }
+    .section-heading h2 {
+        font-size: 20px;
+    }
+    .section-heading p {
+        font-size: 16px;
+    }
 }
 
 .bdr {
-  border-radius: 8px;
-  overflow: hidden;
+    border-radius: 8px;
+    overflow: hidden;
 }

@@ -56,4 +56,9 @@ class User extends Authenticatable implements CanResetPasswordContract
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }

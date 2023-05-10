@@ -1,93 +1,110 @@
 .form-peminjaman {
-  margin-top: 142px;
-  margin-bottom: 44px;
+    margin-top: 142px;
+    margin-bottom: 44px;
 }
 
 .input-form {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 24px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 24px auto;
 }
 
 .card-form {
-  padding: 24px;
-  border-radius: 8px;
-  background-color: #fff;
-  max-width: 1000px;
-  height: 100%;
+    padding: 24px;
+    border-radius: 8px;
+    background-color: #fff;
+    /* max-width: 1000px !important; */
+    height: 100%;
 }
 
 .wrapper {
-  border-radius: 8px;
-  background-color: #fff;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
 .left {
-  width: 100%;
+    width: 100%;
 }
 
 .form-submit {
-  gap: 42px;
+    gap: 42px;
 }
 
 .right {
-  width: 100%;
+    width: 100%;
 }
 
 .vhr {
-  border: none;
-  border-left: 1px solid hsla(200, 10%, 50%, 100);
-  height: 400px;
-  align-self: stretch;
-  width: 1px;
+    border: none;
+    border-left: 1px solid hsla(200, 10%, 50%, 100);
+    height: auto;
+    align-self: stretch;
+    width: 1px;
 }
 
 .jadwal-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
 .add-input p {
-  font-size: 16px;
-  margin: 0;
-  color: #fff;
-  line-height: 32px;
+    font-size: 16px;
+    margin: 0;
+    color: #fff;
+    line-height: 32px;
 }
 
 .add-input {
-  padding: 4px 18px;
-  background-color: #808080;
-  border-radius: 8px;
-  cursor: pointer;
+    padding: 4px 18px;
+    background-color: #2c3e50;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .remove-input {
-  display: flex;
-  justify-content: end;
-  cursor: pointer;
-  color: red;
+    cursor: pointer;
+    color: rgb(225, 71, 71);
+}
+
+.jh-input {
+    display: flex;
+    justify-content: space-between;
 }
 
 .jadwal-wrap {
-  padding: 24px 50px;
-  background-color: #fff;
-  border-radius: 8px;
+    padding: 24px 50px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.info{
+  display: flex;
+  width: 50%;
+  gap: 16px;
 }
 
 @media screen and (max-width: 600px) {
-  .jadwal-wrap {
-    padding: 16px;
-  }
-  .section-heading h2 {
-    font-size: 20px;
-  }
-  .section-heading p {
-    font-size: 16px;
-  }
-
+    .jadwal-wrap {
+        padding: 16px;
+    }
+    .section-heading h2 {
+        font-size: 20px;
+    }
+    .section-heading p {
+        font-size: 16px;
+    }
+    label{
+      font-size: 16px;
+    }
 }
 
-.jadwal{
-  margin-bottom: 64px;
+.jadwal {
+    margin-bottom: 64px;
+}
+
+
+label{
+  font-size: 18px;
 }

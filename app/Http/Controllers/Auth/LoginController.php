@@ -29,7 +29,7 @@ class LoginController extends Controller
             if ($user->role->name === 'User') {
                 return redirect()->intended('/');
             } else {
-                return redirect()->intended('/dashboard-admin');
+                return redirect()->intended('/dashboard-admin/peminjaman/');
             }
         };
 

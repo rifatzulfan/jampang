@@ -19,7 +19,7 @@
 <section class="auth">
     <div class="container">
         <div class="card-auth mx-auto">
-            <div class="header-auth mb-5">
+            <div class="header-auth mb-4">
                 <h2 class="mb-3">Masuk</h2>
                 <p>Masuk dulu guys baru langkah selanjutnya</p>
                 <div class="rectangle"></div>

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Kegunaan extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name'
+    ];
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }
