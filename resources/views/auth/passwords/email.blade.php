@@ -24,10 +24,11 @@
                 <p>kirim email yang lupa passwordnya dulu guys baru langkah selanjutnya</p>
                 <div class="rectangle"></div>
             </div>
-            @if (session('status'))
+            @if (Session::has('message'))
             <div class="alert alert-success" role="alert">
-                {{ session('status') }}
+                {{ Session::get('message') }}
             </div>
+            @endif
             @endif
             <div class="form-login">
                 <form class="mb-4" action="{{ route('password.email') }}" method="POST">
