@@ -59,14 +59,15 @@ class PeminjamanController extends Controller
         // Upload file PDF
         $file = $request->file('surat');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('pdf', $filename);
+        $path = $file->storeAs('public/pdf', $filename);
+        $publicPath = str_replace('public/', '', $path);
 
         // Simpan data peminjaman ke database
         $peminjaman = new Peminjaman;
         $peminjaman->user_id = auth()->user()->id;
         $peminjaman->kegunaan_id = $request->kegunaan;
-        $peminjaman->surat = $path;
-        $peminjaman->status = 'on progress';
+        $peminjaman->surat = $publicPath;
+        $peminjaman->status = 'diproses';
         $peminjaman->save();
 
         // Simpan data jadwal ke database
@@ -80,6 +81,6 @@ class PeminjamanController extends Controller
         }
 
         // Redirect ke halaman sukses
-        return redirect()->route('form-peminjaman.index')->with('success', 'Peminjaman berhasil ditambahkan.');
+        return redirect()->route('success.index');
     }
 }

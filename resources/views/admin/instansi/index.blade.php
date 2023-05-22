@@ -8,18 +8,18 @@
     <!-- Page Content -->
     <div class="container">
         <div id="page-content-wrapper">
-        @include('components/dashboard/header')
+            @include('components/dashboard/header')
 
             <!-- /#page-content-wrapper -->
             <div class="section-heading">
-                <h3>Staff</h3>
+                <h3>Instansi</h3>
                 <div class="rectangle"></div>
-                <p>Staff</p>
+                <p>Instansi</p>
             </div>
             <div class="dashboard-container">
                 <div class="table-function d-block d-lg-flex mb-4">
                     <input style="max-width: 420px" type="text" class="input-custom mb-2 mb-lg-0" id="cari" placeholder="Cari" />
-                    <a href="{{route('staff.create')}}" style="width: fit-content;" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
+                    <a href="{{route('instansi.create')}}" style="width: fit-content;" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
 
                 </div>
                 @if ($message = Session::get('success'))
@@ -33,21 +33,17 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Tarif</th>
-                                <th>Deskripsi</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($staffs as $staff)
+                            @foreach ($instansis as $instansi)
                             <tr>
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
-                                <td class="w-25">{{$staff->name}}</td>
-                                <td class="w-25">{{$staff->price}}</td>
-                                <td class="w-25">{{$staff->description}}</td>
+                                <td class="w-75">{{$instansi->name}}</td>
                                 <td style="width: 128px;" class="text-end">
-                                    <form action="{{route('staff.destroy',$staff->id)}}" method="post">
-                                        <a href="{{route('staff.edit',$staff->id)}}" style="color:transparent;">
+                                    <form action="{{route('instansi.destroy',$instansi->id)}}" method="post">
+                                        <a href="{{route('instansi.edit',$instansi->id)}}" style="color:transparent;">
                                             <img style="cursor: pointer" class="mx-3" src="{{asset('images/edit.svg')}}" alt="" />
                                         </a>
                                         @csrf
@@ -65,7 +61,7 @@
 
 
                 <div aria-label="Page navigation example" class="mt-4">
-                    {!! $staffs->links() !!}
+                    {!! $instansis->links() !!}
                 </div>
             </div>
         </div>

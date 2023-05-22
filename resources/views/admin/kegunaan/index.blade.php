@@ -8,13 +8,8 @@
     <!-- Page Content -->
     <div class="container">
         <div id="page-content-wrapper">
-            <div class="dashboard-header">
-                <div class="d-flex">
-                    <a href="#menu-toggle" id="menu-toggle"><img src="{{asset('images/menu.svg')}}" alt="" /></a>
-                    <h2 class="my-0 mx-2 mx-lg-4">Dashboard</h2>
-                </div>
-                <p class="user-profile m-0">{{ auth()->user()->name }}</p>
-            </div>
+            @include('components/dashboard/header')
+
             <!-- /#page-content-wrapper -->
             <div class="section-heading">
                 <h3>Kepentingan</h3>
@@ -64,7 +59,7 @@
                     </table>
                 </div>
 
-                
+
                 <div aria-label="Page navigation example" class="mt-4">
                     {!! $kegunaans->links() !!}
                 </div>

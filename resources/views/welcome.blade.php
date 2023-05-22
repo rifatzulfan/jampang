@@ -296,26 +296,14 @@
       </div>
     </section> -->
 
-<footer>
-    <div id="contact" class="container">
-        <div class="footer">
-            <div class="logo-brand mb-4">
-                <img src="{{ asset('images/logo.svg') }}" alt="" />
-            </div>
-            <div class="contact">
-                <a href="#" class="mx-4">Instagram</a>
-                <a href="#" class="mx-4">Twitter</a>
-                <a href="#" class="btn-secondarie">WhatsApp</a>
-            </div>
-        </div>
-    </div>
-</footer>
+    @include('components/footer')
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var calendarEl = document.getElementById("calendar");
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: "dayGridMonth",
+            contentHeight: 700
         });
         calendar.render();
     });

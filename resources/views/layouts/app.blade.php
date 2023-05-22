@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/form-pinjam.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/success-page.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}" type="text/css">
 
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet" />
@@ -18,6 +19,7 @@
     <!-- jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    
 
 </head>
 
@@ -32,38 +34,7 @@
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            // Handle dropdown item click event
-            $(".dd-menu li").click(function() {
-                // Get selected status
-                var status = $(this).data("status");
-                // Show/hide table rows based on selected status
-                if (status == "all") {
-                    $("#myTable tbody tr").show();
-                } else {
-                    $("#myTable tbody tr")
-                        .hide()
-                        .filter(function() {
-                            // Compare search term with status text
-                            var statusText = $(this)
-                                .find("td")
-                                .filter(function() {
-                                    return $(this)
-                                        .text()
-                                        .toLowerCase()
-                                        .includes(status.toLowerCase());
-                                })
-                                .first()
-                                .text()
-                                .toLowerCase();
-                            return statusText === status.toLowerCase();
-                        })
-                        .show();
-                }
-            });
-        });
-    </script>
+  
 
     <script>
         function exportTableToCSV(filename) {

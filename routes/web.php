@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InstansiController;
 use App\Http\Controllers\Admin\KegunaanController;
+use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\UserController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\SuksesPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +48,16 @@ Route::post('/logout', function () {
 })->name('logout')->middleware('auth');
 
 Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
-    Route::get('/peminjaman', [DashboardController::class, 'index'])->name('peminjaman.index');
+    Route::get('/peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/peminjaman/create', [AdminPeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('/peminjaman/create', [AdminPeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::get('/peminjaman/{id}', [AdminPeminjamanController::class, 'show'])->name('peminjaman.show');
+    Route::get('/peminjaman/{id}/edit', [AdminPeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::put('/peminjaman/{id}', [AdminPeminjamanController::class, 'update'])->name('peminjaman.update');
+    Route::delete('/peminjaman/{id}', [AdminPeminjamanController::class, 'delete'])->name('peminjaman.destroy');
     Route::resource('kegunaan', KegunaanController::class);
     Route::resource('staff', StaffController::class);
+    Route::resource('instansi', InstansiController::class);
 });
 
 Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Superadmin'])->group(function () {
@@ -63,3 +72,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard')->middleware('auth', 'role:User');
+Route::get('/success', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
+

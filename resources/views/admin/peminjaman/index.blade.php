@@ -32,24 +32,30 @@
                                 <p>Status</p>
                                 <li class="divider m-0"></li>
                                 <li data-status="all">Semua</li>
-                                <li data-status="Terima">Terima</li>
-                                <li data-status="Tunggu">Tunggu</li>
-                                <li data-status="Tolak">Tolak</li>
+                                <li data-status="diterima">Diterima</li>
+                                <li data-status="diproses">Diproses</li>
+                                <li data-status="ditolak">Ditolak</li>
                             </ul>
                         </label>
 
-                        <a href="" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
+                        <a href="{{route('peminjaman.create')}}" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
                         <button class="mx-3" id="exportBtn">
                             <img src="{{asset('images/csv.svg')}}" alt="" />
                         </button>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+                @endif
                 <div class="table-responsive">
                     <table id="myTable" class="table table-bordered rounded rounded-3 overflow-hidden">
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Phone</th>
                                 <th>Kegunaan</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Jam</th>
@@ -58,31 +64,86 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($peminjamen as $peminjaman)
                             <tr>
-                                <th style="width: 48px;" scope="row">1</th>
-                                <td class="w-25">Mark Lazaro</td>
-                                <td>Any item</td>
-                                <td>Any item</td>
+                                <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
+                                <td style="width: 180px;" class="">{{$peminjaman->user->name}}</td>
+                                <td class="">{{$peminjaman->user->phone}}</td>
+                                <td class="">{{$peminjaman->kegunaan->name}}</td>
                                 <td class="">
-                                    09.00 AM - 10.00 AM
+                                    @foreach ($peminjaman->jadwals as $jadwal)
+                                    <span class="">{{$jadwal->tanggal}}</span> <br>
+                                    @endforeach
                                 </td>
-                                <td class="">Active</td>
+                                <td class="">
+                                    @foreach ($peminjaman->jadwals as $jadwal)
+                                    <span class=""> {{$jadwal->jammulai}} - {{$jadwal->jamselesai}}</span> <br>
+                                    @endforeach
+                                </td>
+                                <td class="">
+                                    <div class="badge {{ $peminjaman->status == 'diproses' ? 'warning' : ($peminjaman->status == 'diterima' ? 'success' : 'danger') }}">
+                                        <span>{{$peminjaman->status}}</span>
+                                    </div>
+                                </td>
                                 <td style="width: 128px;" class="text-end">
-                                    <img style="cursor: pointer" class="mx-2" src="{{asset('images/show.svg')}}" alt="" />
-                                    <img src="{{asset('images/edit.svg')}}" style="cursor: pointer" alt="" />
+
+                                    <form action="{{route('peminjaman.destroy',$peminjaman->id)}}" method="post">
+                                        <a href="{{route('peminjaman.show',$peminjaman->id)}}" style="color:transparent;">
+                                            <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
+                                        </a>
+                                        <a href="{{route('peminjaman.edit',$peminjaman->id)}}" style="color:transparent;">
+                                            <img style="cursor: pointer" class="mx-2" src="{{asset('images/edit.svg')}}" alt="" />
+                                        </a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn-delete">
+                                            <img src="{{asset('images/delete.svg')}}" style="cursor: pointer" alt="" />
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div aria-label="Page navigation example" class="mt-4">
-          
+                    {!! $peminjamen->links() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- /#wrapper -->
+<script>
+    $(document).ready(function() {
+        // Handle dropdown item click event
+        $(".dd-menu li").click(function() {
+            // Get selected status
+            var status = $(this).data("status");
+            // Show/hide table rows based on selected status
+            if (status == "all") {
+                $("#myTable tbody tr").show();
+            } else {
+                $("#myTable tbody tr")
+                    .hide()
+                    .filter(function() {
+                        // Compare search term with status text
+                        var statusText = $(this)
+                            .find("td span")
+                            .filter(function() {
+                                return $(this)
+                                    .text()
+                                    .toLowerCase()
+                                    .includes(status.toLowerCase());
+                            })
+                            .first()
+                            .text()
+                            .toLowerCase();
+                        return statusText === status.toLowerCase();
+                    }).show()
+            }
+        });
+    });
+</script>
 
 @endsection

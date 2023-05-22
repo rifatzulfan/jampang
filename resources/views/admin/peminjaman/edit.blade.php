@@ -1,192 +1,198 @@
 @extends('layouts.app')
 
 @section('content')
-@include('components/navbar')
+<div id="wrapper" class="">
 
-<section class="form-peminjaman">
+    @include('components/dashboard/sidebar')
+
+    <!-- Page Content -->
     <div class="container">
-        <div class="section-heading mb-4">
-            <h2>Form Peminjaman</h2>
-            <div class="rectangle"></div>
-            <p>Jadwal Peminjaman Lapangan</p>
-        </div>
+        <div id="page-content-wrapper">
+            @include('components/dashboard/header')
 
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+            <!-- /#page-content-wrapper -->
+            <div class="section-heading">
+                <h3>Edit Peminjaman</h3>
+                <div class="rectangle"></div>
+                <p>
+                    <a href="{{route('peminjaman.index')}}">Peminjaman</a><span class="mx-2">/</span>Edit
+                    Peminjaman
+                </p>
+            </div>
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-        @endif
+            <div class="dashboard-container">
+                <div class="card-form mx-auto">
+                    <form id="myForm" action="{{route('peminjaman.update', $peminjaman->id)}}" method="POST" enctype="multipart/form-data" class="form-submit d-lg-flex d-block">
+                        @method('PUT')
+                        @csrf
+                        <div class="left">
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="status">Status</label>
+                                </p>
+                                <div class="select">
+                                    <select name="status" id="status" class="input-custom">
+                                        <option selected hidden value="{{ $peminjaman->status }}">{{ $peminjaman->status }}</option>
+                                        <option value="diterima">diterima</option>
+                                        <option value="diproses">diproses</option>
+                                        <option value="ditolak">ditolak</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="name">Nama</label>
+                                </p>
+                                <input name="nama" id="nama" class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{ auth()->user()->name }}" disabled />
+                            </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="phone">No Telp</label>
+                                </p>
+                                <input name="phone" id="phone" class="input-custom" type="text" placeholder="Masukan nomor telepon kamu" value="{{ auth()->user()->phone }}" disabled />
+                            </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="kegunaan">Kegunaan</label>
+                                </p>
+                                <div class="select">
+                                    <select name="kegunaan" id="kegunaan" class="input-custom">
+                                        <option selected hidden value="{{ $peminjaman->kegunaan->id }}">{{ $peminjaman->kegunaan->name }}</option>
+                                        @foreach ($kegunaans as $kegunaan)
+                                        <option value="{{ $kegunaan->id }}">{{ $kegunaan->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
-        <div class="wrapper">
-            <div class="card-form mx-auto">
-                <form id="myForm" action="{{route('form-peminjaman.store')}}" method="POST" enctype="multipart/form-data" class="form-submit d-lg-flex d-block">
-                    @csrf
-                    <div class="left">
-                        <div class="input mb-3">
-                            <p class="mb-2">
-                                <label for="name">Nama</label>
-                            </p>
-                            <input name="nama" id="nama" class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{ auth()->user()->name }}" disabled />
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="surat">Surat</label>
+                                </p>
+                                <input class="input-custom" type="text" value="{{$peminjaman->surat}}" disabled />
+                            </div>
+                            <hr class="d-block d-sm-none" />
                         </div>
-                        <div class="input mb-3">
-                            <p class="mb-2">
-                                <label for="phone">No Telp</label>
-                            </p>
-                            <input name="phone" id="phone" class="input-custom" type="text" placeholder="Masukan nomor telepon kamu" value="{{ auth()->user()->phone }}" disabled />
-                        </div>
-                        <div class="input mb-3">
-                            <p class="mb-2">
-                                <label for="kegunaan">Kegunaan</label>
-                            </p>
-                            <div class="select">
-                                <select name="kegunaan" id="kegunaan" class="input-custom">
-                                    @foreach ($kegunaans as $kegunaan)
-                                    <option value="{{ $kegunaan->id }}">{{ $kegunaan->name }}</option>
+                        <hr class="vhr d-none d-sm-block" />
+                        <div class="right">
+                            <div class="input mb-3">
+                                <div class="jadwal-heading">
+                                    <div class="info">
+                                        <img src="{{asset('images/info.svg')}}" class="mr-1" alt="">
+                                        <label style="font-size: 16px;" for="">Pilih Maksimal 4 jadwal dalam satu kali pengajuan ya rekk!</label>
+                                    </div>
+                                    <div class="add-input" id="add-tanggal">
+                                        <p class="d-flex"><span class="d-none d-sm-block mr-2">Tambah Jadwal</span> +</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="tanggal-container" class="mb-3">
+                                    @foreach ($peminjaman->jadwals as $jadwal)
+                                    <div id="tanggal" class="field-input" style="margin-bottom: 8px">
+                                        <div class="jh-input">
+                                            <p class="mb-2">
+                                                <label for="">Jadwal {{$loop->iteration}}</label>
+                                            </p>
+                                        </div>
+                                        <div class="time-selector row gx-2">
+                                            <div class="col-12 col-sm-4">
+                                                <p class="mb-2">
+                                                    <label for="tanggal1">Tanggal Mulai</label>
+                                                </p>
+                                                <input type="text" value="{{$jadwal->tanggal}}" name="moreFields[0][tanggal]" class="input-custom datepicker mb-2  @error('moreFields[0][tanggal]') is-invalid @enderror" id="date0" placeholder="Pilih Tanggal" />
+                                                @error('moreFields[0][tanggal]')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="mb-2">
+                                                    <label for="jammulai.1">Jam Mulai</label>
+                                                </p>
+                                                <div class="select">
+                                                    <select class="input-custom start-time  @error('moreFields[0][jammulai]') is-invalid @enderror" name="moreFields[0][jammulai]" id="start-time" required>
+                                                        <option value="{{$jadwal->jammulai}}" selected hidden>
+                                                            {{$jadwal->jammulai}}
+                                                        </option>
+                                                        <option value="7:00">7:00</option>
+                                                        <option value="8:00">8:00</option>
+                                                        <option value="9:00">9:00</option>
+                                                        <option value="10:00">10:00</option>
+                                                        <option value="11:00">11:00</option>
+                                                        <option value="12:00">12:00</option>
+                                                        <option value="13:00">13:00</option>
+                                                        <option value="14:00">14:00</option>
+                                                        <option value="15:00">15:00</option>
+                                                        <option value="16:00">16:00</option>
+                                                        <option value="17:00">17:00</option>
+                                                        <option value="18:00">18:00</option>
+                                                        <option value="19:00">19:00</option>
+                                                        <option value="20:00">20:00</option>
+                                                    </select>
+                                                </div>
+                                                @error('moreFields[0][jammulai]')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-4">
+                                                <p class="mb-2">
+                                                    <label for="jamselesai.1">Selesai</label>
+                                                </p>
+                                                <div class="select">
+                                                    <select class="input-custom end-time  @error('moreFields[0][jamselesai]') is-invalid @enderror" name="moreFields[0][jamselesai]" id="end-time">
+                                                        <option value="{{$jadwal->jamselesai}}" selected hidden>
+                                                            {{$jadwal->jamselesai}}
+                                                        </option>
+                                                        <option value="8:00">8:00</option>
+                                                        <option value="9:00">9:00</option>
+                                                        <option value="10:00">10:00</option>
+                                                        <option value="11:00">11:00</option>
+                                                        <option value="12:00">12:00</option>
+                                                        <option value="13:00">13:00</option>
+                                                        <option value="14:00">14:00</option>
+                                                        <option value="15:00">15:00</option>
+                                                        <option value="16:00">16:00</option>
+                                                        <option value="17:00">17:00</option>
+                                                        <option value="18:00">18:00</option>
+                                                        <option value="19:00">19:00</option>
+                                                        <option value="20:00">20:00</option>
+                                                        <option value="21:00">21:00</option>
+                                                        <option value="22:00">22:00</option>
+                                                    </select>
+                                                </div>
+                                                @error('moreFields[0][jamselesai]')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input mb-3">
-                            <p class="mb-2">
-                                <label for="surat">Surat</label>
-                            </p>
-                            <input name="surat" id="surat" class="input-custom" type="file" placeholder="Masukan nomor telepon kamu" accept="application/pdf,application/" required />
-                        </div>
-                        <hr class="d-block d-sm-none" />
-                    </div>
-                    <hr class="vhr d-none d-sm-block" />
-                    <div class="right">
-                        <div class="input mb-3">
-                            <div class="jadwal-heading">
-                                <div class="info">
-                                    <img src="{{asset('images/info.svg')}}" class="mr-1" alt="">
-                                    <label style="font-size: 16px;" for="">Pilih Maksimal 4 jadwal dalam satu kali pengajuan ya rekk!</label>
-                                </div>
-                                <div class="add-input" id="add-tanggal">
-                                    <p class="">Tambah Jadwal +</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div id="tanggal-container" class="mb-3">
-                                <div id="tanggal" class="field-input" style="margin-bottom: 8px">
-                                    <div class="jh-input">
-                                        <p class="mb-2">
-                                            <label for="">Pilih Jadwal</label>
-                                        </p>
-                                    </div>
-                                    <div class="time-selector row gx-2">
-                                        <div class="col-12 col-sm-4">
-                                            <p class="mb-2">
-                                                <label for="tanggal1">Tanggal Mulai</label>
-                                            </p>
-                                            <input type="text" name="moreFields[0][tanggal]" class="input-custom datepicker mb-2  @error('moreFields[0][tanggal]') is-invalid @enderror" id="date0" placeholder="Pilih Tanggal" />
-                                            @error('moreFields[0][tanggal]')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="mb-2">
-                                                <label for="jammulai.1">Jam Mulai</label>
-                                            </p>
-                                            <div class="select">
-                                                <select class="input-custom start-time  @error('moreFields[0][jammulai]') is-invalid @enderror" name="moreFields[0][jammulai]" id="start-time" required>
-                                                    <option value="" disabled selected hidden>
-                                                        Pilih jam mulai
-                                                    </option>
-                                                    <option value="7:00">7:00</option>
-                                                    <option value="8:00">8:00</option>
-                                                    <option value="9:00">9:00</option>
-                                                    <option value="10:00">10:00</option>
-                                                    <option value="11:00">11:00</option>
-                                                    <option value="12:00">12:00</option>
-                                                    <option value="13:00">13:00</option>
-                                                    <option value="14:00">14:00</option>
-                                                    <option value="15:00">15:00</option>
-                                                    <option value="16:00">16:00</option>
-                                                    <option value="17:00">17:00</option>
-                                                    <option value="18:00">18:00</option>
-                                                    <option value="19:00">19:00</option>
-                                                    <option value="20:00">20:00</option>
-                                                </select>
-                                            </div>
-                                            @error('moreFields[0][jammulai]')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-4">
-                                            <p class="mb-2">
-                                                <label for="jamselesai.1">Selesai</label>
-                                            </p>
-                                            <div class="select">
-                                                <select class="input-custom end-time  @error('moreFields[0][jamselesai]') is-invalid @enderror" name="moreFields[0][jamselesai]" id="end-time">
-                                                    <option value="" disabled selected hidden>
-                                                        Pilih jam selesai
-                                                    </option>
-                                                    <option value="8:00">8:00</option>
-                                                    <option value="9:00">9:00</option>
-                                                    <option value="10:00">10:00</option>
-                                                    <option value="11:00">11:00</option>
-                                                    <option value="12:00">12:00</option>
-                                                    <option value="13:00">13:00</option>
-                                                    <option value="14:00">14:00</option>
-                                                    <option value="15:00">15:00</option>
-                                                    <option value="16:00">16:00</option>
-                                                    <option value="17:00">17:00</option>
-                                                    <option value="18:00">18:00</option>
-                                                    <option value="19:00">19:00</option>
-                                                    <option value="20:00">20:00</option>
-                                                    <option value="21:00">21:00</option>
-                                                    <option value="22:00">22:00</option>
-                                                </select>
-                                            </div>
-                                            @error('moreFields[0][jamselesai]')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" value="Ajukan" class="btn-primary-2 mt-2">
-                    </div>
+                </div>
+                <input type="submit" value="Perbarui" class="btn-primary-2 mt-2">
                 </form>
             </div>
         </div>
     </div>
-</section>
-
-<section id="jadwal" class="jadwal">
-    <div class="container">
-        <div class="jadwal-wrap" style="position:static;">
-            <div class="section-heading" style="padding: 0;">
-                <h2>Jadwal Peminjaman</h2>
-                <div class="rectangle"></div>
-                <p>Jadwal Peminjaman Lapangan</p>
-            </div>
-            <div id="calendar"></div>
-        </div>
-    </div>
-</section>
-
-@include('components/footer')
-
+</div>
+</div>
 
 <script>
     $(document).ready(function() {
@@ -194,8 +200,8 @@
         var inputsWrapper = $("#tanggal-container"); // container for input fields
         var addButton = $("#add-tanggal"); // button to add input field
 
-        var i = 0; // current number of input fields
-        var j = 1; // current number of input fields
+        var i = `{{ count($peminjaman->jadwals) }}`; // current number of input fields
+        var j = `{{ count($peminjaman->jadwals) }}`; // current number of input fields
 
         // add input field on button click
         $(addButton).click(function() {
@@ -206,7 +212,7 @@
                 <div id="tanggal" class="field-input"  style="margin-bottom: 8px">
                 <div class="jh-input">
                                         <p class="mb-2">
-                                            <label for="">Pilih Jadwal ${j}</label>
+                                            <label for="">Jadwal ${j}</label>
                                         </p>
                                         <div class="remove-input">
                                             <p style="font-size: 16px">Hapus</p>
@@ -404,14 +410,6 @@
         });
     });
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var calendarEl = document.getElementById("calendar");
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: "dayGridMonth",
-            contentHeight: 600
-        });
-        calendar.render();
-    });
-</script>
+<!-- /#wrapper -->
+
 @endsection

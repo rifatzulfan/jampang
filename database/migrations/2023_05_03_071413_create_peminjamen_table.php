@@ -18,9 +18,13 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('staff_id')->unsigned()->nullable();
             $table->bigInteger('kegunaan_id')->unsigned();
+            $table->bigInteger('instansi_id')->unsigned();
 
             $table->string('surat');
-            $table->string('status')->default(0);
+            $table->string('status');
+            $table->string('name');
+            $table->string('phone');
+            $table->longText('message')->nullable();
 
 
             $table->softDeletes();

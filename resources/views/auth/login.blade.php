@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<nav class="navbar fixed-top navbar-expand-lg navbar-light py-24">
+<nav class="navbar  navbar-expand-lg navbar-light py-24">
     <div class="container">
         <div class="mx-auto">
             <a class="navbar-brand fw-bold logo-2" href="/"><svg width="235" height="48" viewBox="0 0 235 48" class="logo" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,6 +64,6 @@
     </div>
 </section>
 
-<img src="{{asset('images/auth.png')}}" class="img-auth" alt="" />
+<img src="{{asset('images/auth.png')}}" class="img-reg" alt="" />
 
 @endsection
