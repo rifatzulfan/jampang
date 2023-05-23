@@ -25,7 +25,7 @@ class User extends Authenticatable implements CanResetPasswordContract
         'email',
         'phone',
         'password',
-        'role_id',
+        'role',
     ];
 
     /**
@@ -52,13 +52,11 @@ class User extends Authenticatable implements CanResetPasswordContract
         $this->notify(new ResetPassword($token));
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
     public function peminjaman()
     {
         return $this->hasMany(Peminjaman::class);
+        
     }
+
+    
 }
