@@ -35,6 +35,9 @@ class PeminjamanController extends Controller
                 function ($attribute, $value, $fail) use ($request) {
                     foreach ($request->moreFields as $key => $data) {
                         $jadwal = Jadwal::where('tanggal', $data['tanggal'])
+                            ->whereHas('peminjaman', function ($query) {
+                                $query->where('status', 'diterima');
+                            })
                             ->where(function ($query) use ($data) {
                                 $query->whereBetween('jammulai', [$data['jammulai'], $data['jamselesai']])
                                     ->orWhereBetween('jamselesai', [$data['jammulai'], $data['jamselesai']])
@@ -46,10 +49,13 @@ class PeminjamanController extends Controller
                                         $query->where('jammulai', '<', $data['jamselesai'])
                                             ->where('jamselesai', '>', $data['jamselesai']);
                                     });
-                            })->first();
+                            })
+                            ->first();
+
 
                         if ($jadwal && $key !== $attribute) {
-                            $fail("Jammulai dan jamselesai harus berbeda dengan jadwal lain pada tanggal yang sama.");
+                            $fail("Jam yang kamu pilih tabrakan
+                            Pilih tanggal atau jam yang kosong yaa!!");
                         }
                     }
                 },

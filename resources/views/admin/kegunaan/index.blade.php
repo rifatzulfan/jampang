@@ -42,16 +42,34 @@
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td class="w-75">{{$kegunaan->name}}</td>
                                 <td style="width: 128px;" class="text-end">
-                                    <form action="{{route('kegunaan.destroy',$kegunaan->id)}}" method="post">
-                                        <a href="{{route('kegunaan.edit',$kegunaan->id)}}" style="color:transparent;">
-                                            <img style="cursor: pointer" class="mx-3" src="{{asset('images/edit.svg')}}" alt="" />
-                                        </a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn-delete">
-                                            <img src="{{asset('images/delete.svg')}}" style="cursor: pointer" alt="" />
-                                        </button>
-                                    </form>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Kepentingan</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-start">
+                                                    Kamu akan menghapus kepentingan {{$kegunaan->name}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    <form action="{{route('kegunaan.destroy',$kegunaan->id)}}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="{{route('kegunaan.edit',$kegunaan->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
+                                        <img src="{{asset('images/edit.svg')}}" style="cursor: pointer" alt="" />
+                                    </a>
+                                    <button class="btn-delete my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <img src="{{asset('images/delete.svg')}}" style="cursor: pointer" alt="" />
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach

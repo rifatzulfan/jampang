@@ -19,6 +19,6 @@ class UserDashboardController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(6);
 
-        return view('user.peminjaman', compact('peminjamen'));
+        return view('user.peminjaman.index', compact('peminjamen'));
     }
 }

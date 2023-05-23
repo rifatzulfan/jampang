@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\InstansiController;
 use App\Http\Controllers\Admin\KegunaanController;
 use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
-use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -61,7 +60,6 @@ Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Admin,Superadmin'])
 
 Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Superadmin'])->group(function () {
 
-    Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);
 });
 

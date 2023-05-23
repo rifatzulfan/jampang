@@ -27,14 +27,12 @@ class RegisterController extends Controller
             'password_confirmation' => ['required', 'min:8', 'same:password']
         ]);
 
-        $defaultRole = Role::where('name', 'user')->firstOrFail();
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'role_id' => $defaultRole->id,
+            'role' => 'User',
         ]);
 
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {

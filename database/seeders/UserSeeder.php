@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'phone' => '085745827142',
                 'email_verified_at' => date('Y-m-d H:i:s', time()),
                 'password' => \bcrypt('password'),
-                'role_id' => 1
+                'role' => 'Superadmin'
             ]
         ];
 

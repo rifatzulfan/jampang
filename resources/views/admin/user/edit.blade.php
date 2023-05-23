@@ -70,13 +70,13 @@
                         </div>
                         <div class="input mb-3">
                             <p class="mb-2">
-                                <label for="role_id">Role</label>
+                                <label for="role">Role</label>
                             </p>
                             <div class="select">
-                                <select name="role_id" id="role_id" class="input-custom @error('role') is-invalid @enderror">
-                                    @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}" {{ $role->id == old('role_id', $defaultRoleId) ? 'selected' : '' }}>{{ $role->name }}</option>
-                                    @endforeach
+                                <select name="role" id="role" class="input-custom @error('role') is-invalid @enderror">
+                                    <option value="Superadmin">Superadmin</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="User">User</option>
                                 </select>
                             </div>
                             @error('role')

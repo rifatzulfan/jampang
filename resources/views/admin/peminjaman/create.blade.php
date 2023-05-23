@@ -36,28 +36,41 @@
                         <div class="left">
                             <div class="input mb-3">
                                 <p class="mb-2">
-                                    <label for="name">Nama</label>
+                                    <label for="name">Atas Nama</label>
                                 </p>
-                                <input name="nama" id="nama" class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{ auth()->user()->name }}" disabled />
+                                <input name="name" id="name" class="input-custom" type="text" placeholder="Masukan Atas Nama peminjaman" />
                             </div>
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="phone">No Telp</label>
                                 </p>
-                                <input name="phone" id="phone" class="input-custom" type="text" placeholder="Masukan nomor telepon kamu" value="{{ auth()->user()->phone }}" disabled />
+                                <input name="phone" id="phone" class="input-custom" type="text" placeholder="Masukan nomor telepon kamu" />
+                            </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="instansi">Instansi</label>
+                                </p>
+                                <div class="select">
+                                    <select name="instansi" id="instansi" class="input-custom" require>
+                                        @foreach ($instansis as $instansi)
+                                        <option value="{{ $instansi->id }}">{{ $instansi->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="kegunaan">Kegunaan</label>
                                 </p>
                                 <div class="select">
-                                    <select name="kegunaan" id="kegunaan" class="input-custom">
+                                    <select name="kegunaan" id="kegunaan" class="input-custom" require>
                                         @foreach ($kegunaans as $kegunaan)
                                         <option value="{{ $kegunaan->id }}">{{ $kegunaan->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="surat">Surat</label>
@@ -166,7 +179,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="Tambahkan" class="btn-primary-2 mt-2">
+                            <input type="submit" value="Ajukan" class="btn-primary-2 mt-2">
                         </div>
                     </form>
                 </div>
@@ -177,7 +190,7 @@
 
 <script>
     $(document).ready(function() {
-        var maxInputs = 4; // maximum number of input fields
+        var maxInputs = 3; // maximum number of input fields
         var inputsWrapper = $("#tanggal-container"); // container for input fields
         var addButton = $("#add-tanggal"); // button to add input field
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
 
-            $table->bigInteger('role_id')->unsigned();
+            $table->string('role');
             $table->timestamps();
             $table->softDeletes();
         });

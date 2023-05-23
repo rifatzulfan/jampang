@@ -34,7 +34,7 @@
             </ul>
             @auth
             <div style="width: 205px; text-align: end" class="my-4 my-lg-0">
-                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard/peminjaman' : '/dashboard-admin/peminjaman' }}" class="profile-home">{{ auth()->user()->name }}</a>
+                <a href="{{ auth()->user()->role === 'User' ? '/dashboard/peminjaman' : '/dashboard-admin/peminjaman' }}" class="profile-home">{{ auth()->user()->name }}</a>
             </div>
             @endauth
             @guest

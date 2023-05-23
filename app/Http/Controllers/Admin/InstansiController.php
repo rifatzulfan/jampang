@@ -29,7 +29,7 @@ class InstansiController extends Controller
 
         Instansi::create($request->post());
 
-        return redirect()->route('instansi.index')->with('success', 'instansi Sukses Ditambahkan.');
+        return redirect()->route('instansi.index')->with('success', 'Instansi Sukses Ditambahkan.');
     }
 
     public function edit(Instansi $instansi)
@@ -45,11 +45,11 @@ class InstansiController extends Controller
 
         $instansi->fill($request->post())->save();
 
-        return redirect()->route('instansi.index')->with('success', 'instansi Sukses Diperbarui.');
+        return redirect()->route('instansi.index')->with('success', 'Instansi Sukses Diperbarui.');
     }
     public function destroy(Instansi $instansi)
     {
         $instansi->delete();
-        return redirect()->route('instansi.index')->with('success', 'instansi Sukses Dihapus');
+        return redirect()->route('instansi.index')->with('success', 'Instansi Sukses Dihapus');
     }
 }

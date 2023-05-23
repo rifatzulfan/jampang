@@ -200,7 +200,6 @@
 
 @include('components/footer')
 
-
 <script>
     $(document).ready(function() {
         var maxInputs = 3; // maximum number of input fields

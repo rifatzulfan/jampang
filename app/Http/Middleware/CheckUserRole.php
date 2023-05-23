@@ -18,7 +18,7 @@ class CheckUserRole
     public function handle(Request $request, Closure $next, ...$roles)
     {
         $user = Auth::user();
-        if (in_array($user->role->name, $roles)) {
+        if (in_array($user->role, $roles)) {
             // User has the required role, allow access to the route
             return $next($request);
         }

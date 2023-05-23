@@ -175,6 +175,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="input mb-3 pesan" style="display: none;">
+                    <p class="mb-2">
+                        <label for="message">Pesan</label>
+                    </p>
+                    <input class="input-custom " type="text" name="message" placeholder="Masukan pesan alasan ditolak" value="" />
+                </div>
                 <input type="submit" value="Perbarui Status" class="btn-primary-2 mt-2">
 
             </form>
@@ -182,4 +188,18 @@
     </div>
 </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#status').change(function() {
+            var selectedStatus = $(this).val();
+            if (selectedStatus === 'ditolak') {
+                $('.pesan').show();
+            } else {
+                $('.pesan').hide();
+                $('.pesan').val(''); //
+            }
+        });
+    });
+</script>
 @endsection

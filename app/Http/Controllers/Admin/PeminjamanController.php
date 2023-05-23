@@ -8,8 +8,7 @@ use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Jadwal;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
+use App\Models\Instansi;
 
 class PeminjamanController extends Controller
 {
@@ -23,13 +22,17 @@ class PeminjamanController extends Controller
     public function create()
     {
         $kegunaans = Kegunaan::all();
-        return view('admin.peminjaman.create', compact('kegunaans'));
+        $instansis = Instansi::all();
+        return view('admin.peminjaman.create', compact('kegunaans', 'instansis'));
     }
 
     public function store(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'instansi' => 'required',
             'kegunaan' => 'required',
             'surat' => 'required|file|mimes:pdf',
             'moreFields.*.tanggal' => 'required|date',
@@ -38,6 +41,9 @@ class PeminjamanController extends Controller
                 function ($attribute, $value, $fail) use ($request) {
                     foreach ($request->moreFields as $key => $data) {
                         $jadwal = Jadwal::where('tanggal', $data['tanggal'])
+                            ->whereHas('peminjaman', function ($query) {
+                                $query->where('status', 'diterima');
+                            })
                             ->where(function ($query) use ($data) {
                                 $query->whereBetween('jammulai', [$data['jammulai'], $data['jamselesai']])
                                     ->orWhereBetween('jamselesai', [$data['jammulai'], $data['jamselesai']])
@@ -49,7 +55,9 @@ class PeminjamanController extends Controller
                                         $query->where('jammulai', '<', $data['jamselesai'])
                                             ->where('jamselesai', '>', $data['jamselesai']);
                                     });
-                            })->first();
+                            })
+                            ->first();
+
 
                         if ($jadwal && $key !== $attribute) {
                             $fail("Jammulai dan jamselesai harus berbeda dengan jadwal lain pada tanggal yang sama.");
@@ -64,11 +72,20 @@ class PeminjamanController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
+        // Upload file PDF
+        $file = $request->file('surat');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('public/pdf', $filename);
+        $publicPath = str_replace('public/', '', $path);
 
         // Simpan data peminjaman ke database
         $peminjaman = new Peminjaman;
         $peminjaman->user_id = auth()->user()->id;
+        $peminjaman->name = $request->name;
+        $peminjaman->phone = $request->phone;
         $peminjaman->kegunaan_id = $request->kegunaan;
+        $peminjaman->instansi_id = $request->instansi;
+        $peminjaman->surat = $publicPath;
         $peminjaman->status = 'diproses';
         $peminjaman->save();
 
