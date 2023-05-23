@@ -4,12 +4,14 @@
         <h2 class="my-0 mx-2 mx-lg-4">Dashboard</h2>
     </div>
     <div class="d-flex">
-        <p class="user-profile mx-4 my-0">{{ auth()->user()->name }}</p>
+        <p class="user-profile mx-2 mx-sm-4 my-0">{{ auth()->user()->name }}</p>
         <form id="logout" action="/logout" method="post">
             @csrf
             <input type="hidden" value="Logout">
-            <a href="javascript:;" onclick="document.getElementById('logout').submit();"><img src="{{asset('images/Logout.svg')}}" class="mr-2" alt="" />
-            </a>
+            <div class="">
+                <a href="javascript:;" onclick="document.getElementById('logout').submit();"><img src="{{asset('images/Logout.svg')}}" class="logout " alt="" />
+                </a>
+            </div>
         </form>
     </div>
 </div>

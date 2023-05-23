@@ -94,10 +94,11 @@
          @endif
 
 
+         @if(auth()->user()->role->name === 'Superadmin')
          <div class="title-section">
              <p>User</p>
          </div>
-         @if(auth()->user()->role->name === 'Superadmin')
+         
          <li>
              <a class="{{ request()->routeIs('user.*') ? 'active' : '' }}" href="{{route('user.index')}}">
                  <svg class="mr-2" width="25" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,4 +110,3 @@
      </ul>
  </div>
  <!-- /#sidebar-wrapper -->
-

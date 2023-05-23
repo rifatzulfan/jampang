@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="wrapper" class="">
 
-    @include('components/dashboard/sidebar')
+<div id="wrapper" class="">
+    <!-- Sidebar -->
+    @include('components/dashboard/sidebar-user')
+
+    <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div class="container">
@@ -37,11 +40,6 @@
                                 <li data-status="ditolak">Ditolak</li>
                             </ul>
                         </label>
-
-                        <a href="{{route('peminjaman.create')}}" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
-                        <button class="mx-3" id="exportBtn">
-                            <img src="{{asset('images/csv.svg')}}" alt="" />
-                        </button>
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
@@ -92,9 +90,9 @@
                                             <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
                                         </a>
                                         @csrf
-                                        @method('DELETE')
-                                        <button class="btn-delete my-3 my-sm-0">
-                                            <img src="{{asset('images/delete.svg')}}" style="cursor: pointer" alt="" />
+                                        @method('PUT')
+                                        <button class="btn-batal my-3 my-sm-0">
+                                            Batal
                                         </button>
                                     </form>
                                 </td>
@@ -142,5 +140,7 @@
         });
     });
 </script>
+</div>
+<!-- /#wrapper -->
 
 @endsection

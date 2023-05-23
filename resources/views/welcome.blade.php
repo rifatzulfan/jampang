@@ -34,7 +34,7 @@
             </ul>
             @auth
             <div style="width: 205px; text-align: end" class="my-4 my-lg-0">
-                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard' : '/dashboard-admin/peminjaman' }}" class="profile-home">{{ auth()->user()->name }}</a>
+                <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard/peminjaman' : '/dashboard-admin/peminjaman' }}" class="profile-home">{{ auth()->user()->name }}</a>
             </div>
             @endauth
             @guest
@@ -81,7 +81,8 @@
                 <div class="rectangle"></div>
                 <p>Jadwal Peminjaman Lapangan</p>
             </div>
-            <div id="calendar"></div>
+
+            <div id='calendar'></div>
         </div>
     </div>
 </section>
@@ -296,15 +297,29 @@
       </div>
     </section> -->
 
-    @include('components/footer')
-
+@include('components/footer')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var calendarEl = document.getElementById("calendar");
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: "dayGridMonth",
-            contentHeight: 700
+            contentHeight: 700,
+            events: JSON.parse('{!! $jsonEvents !!}'),
+            eventContent: function(info) {
+                var eventTitle = info.event.title;
+                var additionalInfo = info.event.extendedProps.additionalInfo;
+                return {
+                    html: '<div class="fc-content"><div class="fc-title">' +
+                        eventTitle +
+                        '</div><div class="fc-additional-info">' +
+                        additionalInfo +
+                        "</div></div>",
+                };
+            },
+
         });
+
+
         calendar.render();
     });
 

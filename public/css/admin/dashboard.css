@@ -126,10 +126,12 @@ body {
     text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 600px) {
     .user-profile {
         font-size: 20px;
     }
+}
+@media (min-width: 768px) {
     #wrapper {
         padding-left: 324px;
     }
@@ -169,7 +171,8 @@ body {
 }
 .user-profile {
     font-weight: 700 !important;
-    font-size: 24px;
+    font-size: 20px;
+    text-align: end;
 }
 
 .dashboard-container {

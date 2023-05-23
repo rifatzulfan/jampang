@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Instansi;
 use App\Models\Kegunaan;
 use Illuminate\Http\Request;
 use App\Models\Peminjaman;
@@ -15,13 +16,17 @@ class PeminjamanController extends Controller
     public function index()
     {
         $kegunaans = Kegunaan::all();
-        return view('peminjaman', compact('kegunaans'));
+        $instansis = Instansi::all();
+        return view('peminjaman', compact('kegunaans', 'instansis'));
     }
 
     public function store(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'instansi' => 'required',
             'kegunaan' => 'required',
             'surat' => 'required|file|mimes:pdf',
             'moreFields.*.tanggal' => 'required|date',
@@ -65,7 +70,10 @@ class PeminjamanController extends Controller
         // Simpan data peminjaman ke database
         $peminjaman = new Peminjaman;
         $peminjaman->user_id = auth()->user()->id;
+        $peminjaman->name = $request->name;
+        $peminjaman->phone = $request->phone;
         $peminjaman->kegunaan_id = $request->kegunaan;
+        $peminjaman->instansi_id = $request->instansi;
         $peminjaman->surat = $publicPath;
         $peminjaman->status = 'diproses';
         $peminjaman->save();

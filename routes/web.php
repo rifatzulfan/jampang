@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\SuksesPageController;
 
@@ -25,9 +26,8 @@ use App\Http\Controllers\SuksesPageController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -52,7 +52,6 @@ Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Admin,Superadmin'])
     Route::get('/peminjaman/create', [AdminPeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/peminjaman/create', [AdminPeminjamanController::class, 'store'])->name('peminjaman.store');
     Route::get('/peminjaman/{id}', [AdminPeminjamanController::class, 'show'])->name('peminjaman.show');
-    Route::get('/peminjaman/{id}/edit', [AdminPeminjamanController::class, 'edit'])->name('peminjaman.edit');
     Route::put('/peminjaman/{id}', [AdminPeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/peminjaman/{id}', [AdminPeminjamanController::class, 'delete'])->name('peminjaman.destroy');
     Route::resource('kegunaan', KegunaanController::class);
@@ -71,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/form-peminjaman', [PeminjamanController::class, 'store'])->name('form-peminjaman.store');
 });
 
-Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard')->middleware('auth', 'role:User');
+Route::prefix('/dashboard')->middleware(['auth', 'role:User'])->group(function () {
+    Route::get('/peminjaman', [UserDashboardController::class, 'index'])->name('peminjaman-user.index');
+});
 Route::get('/success', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
-

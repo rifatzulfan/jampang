@@ -20,19 +20,49 @@
             </div>
             <div class="dashboard-container">
                 <div class="card-form mx-auto">
+                    <div class="section-heading p-0">
+                        <h4>Detail Pengajuan</h4>
+                        <p>
+                            Ubah Status dibawah
+                        </p>
+                    </div>
                     <form id="myForm" enctype="multipart/form-data" class="form-submit d-lg-flex d-block">
                         <div class="left">
-                            <div class="input mb-3">
-                                <p class="mb-2">
-                                    <label for="name">Nama</label>
-                                </p>
-                                <input class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{$peminjaman->user->name}}" disabled />
+                            <div class="col-12">
+                                <div class="row gx-2">
+
+                                    <div class="col-6">
+                                        <div class="input mb-3">
+                                            <p class="mb-2">
+                                                <label for="name">Atas Nama</label>
+                                            </p>
+                                            <input class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{$peminjaman->name}}" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input mb-3">
+                                            <p class="mb-2">
+                                                <label for="name">User Pengaju</label>
+                                            </p>
+                                            <input class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{$peminjaman->user->name}}" disabled />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="phone">No Telp</label>
                                 </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->user->phone}}" disabled />
+                                <input class="input-custom" type="text" value="{{$peminjaman->phone}}" disabled />
+                            </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="kegunaan">Instansi</label>
+                                </p>
+                                <input class="input-custom" type="text" value="{{$peminjaman->instansi->name}}" disabled />
+
                             </div>
                             <div class="input mb-3">
                                 <p class="mb-2">
@@ -74,7 +104,7 @@
                                         <div class="time-selector row gx-2 gy-2">
                                             <div class="col-12 col-sm-4">
                                                 <p class="mb-2">
-                                                    <label for="tanggal1">Tanggal Mulai</label>
+                                                    <label for="tanggal1">Tanggal</label>
                                                 </p>
                                                 <input class="input-custom" type="text" value="{{$jadwal->tanggal}}" disabled />
 
@@ -99,9 +129,57 @@
                                 </div>
                             </div>
                     </form>
+
                 </div>
+                <hr class="my-4">
+                <div class="section-heading p-0">
+                    <h4>Detail Sewa Staff</h4>
+                </div>
+                <form id="myForm" enctype="multipart/form-data" class="form-submit d-lg-flex d-block">
+                    <div class="left">
+                        <div class="input mb-3">
+                            <p class="mb-2">
+                                <label for="kegunaan">Staff</label>
+                            </p>
+                            <input class="input-custom" type="text" value="{{$peminjaman->kegunaan->name}}" disabled />
+                        </div>
+                        <hr class="d-block d-sm-none" />
+                    </div>
+                    <hr class="vhr d-none d-sm-block" />
+                    <div class="right">
+                        <div class="input mb-3">
+                            <p class="mb-2">
+                                <label for="kegunaan">Status Pembayaran</label>
+                            </p>
+                            <input class="input-custom" type="text" value="{{$peminjaman->kegunaan->name}}" disabled />
+                        </div>
+                </form>
             </div>
+            <hr class="my-4">
+            <div id="#status" class="section-heading p-0">
+                <h4>Ubah Status</h4>
+            </div>
+            <form action="{{route('peminjaman.update', $peminjaman->id)}}" method="post">
+                @csrf
+                @method('PUT')
+                <div class="input mb-3">
+                    <p class="mb-2">
+                        <label for="kegunaan">Status</label>
+                    </p>
+                    <div class="select">
+                        <select name="status" id="status" class="input-custom">
+                            <option selected hidden value="{{ $peminjaman->status }}">{{ $peminjaman->status }}</option>
+                            <option value="diterima">diterima</option>
+                            <option value="diproses">diproses</option>
+                            <option value="ditolak">ditolak</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" value="Perbarui Status" class="btn-primary-2 mt-2">
+
+            </form>
         </div>
     </div>
+</div>
 </div>
 @endsection

@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div style="width: 205px; text-align: end" class="my-4 my-lg-0">
-            <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard' : '/dashboard-admin/peminjaman' }}" class="profile">{{ auth()->user()->name }}</a>
+            <a href="{{ auth()->user()->role->name === 'User' ? '/dashboard/peminjaman' : '/dashboard-admin/peminjaman' }}" class="profile">{{ auth()->user()->name }}</a>
             </div>
         </div>
     </div>
