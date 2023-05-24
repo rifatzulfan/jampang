@@ -44,6 +44,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('admin.user.edit', compact('user'));
+
     }
 
     public function update(Request $request, User $user)
@@ -51,21 +52,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $user->id,
+            'password' => 'sometimes|min:8|nullable',
             'phone' => 'required',
-            'role_id' => 'required',
+            'role' => 'required',
         ]);
 
         $data = $request->post();
 
-        if (!empty($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            // If the password field is empty, retain the old password value
-            $data['password'] = $user->getOriginal('password');
-        }
-
         $user->fill($data)->save();
-
         return redirect()->route('user.index')->with('success', 'User Sukses Diperbarui.');
     }
     public function destroy(User $user)

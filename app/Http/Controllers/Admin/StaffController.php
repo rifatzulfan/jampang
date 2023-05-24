@@ -42,6 +42,8 @@ class StaffController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'price' => 'required',
+            'description' => 'required'
         ]);
 
         $staff->fill($request->post())->save();

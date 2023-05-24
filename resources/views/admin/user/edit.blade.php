@@ -70,10 +70,11 @@
                         </div>
                         <div class="input mb-3">
                             <p class="mb-2">
-                                <label for="role">Role</label>
+                                <label for="role_id">Role</label>
                             </p>
                             <div class="select">
                                 <select name="role" id="role" class="input-custom @error('role') is-invalid @enderror">
+                                    <option selected hidden value="{{$user->role}}">{{$user->role}}</option>
                                     <option value="Superadmin">Superadmin</option>
                                     <option value="Admin">Admin</option>
                                     <option value="User">User</option>
@@ -85,7 +86,7 @@
                             </div>
                             @enderror
                         </div>
-                        <input type="submit" value="Tambahkan" class="btn-primary-2 mt-2">
+                        <input type="submit" value="Perbarui" class="btn-primary-2 mt-2">
                     </form>
                 </div>
             </div>
