@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chekouts', function (Blueprint $table) {
+        Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('peminjaman_id')->unsigned();
-            $table->string('payment_status')->default(0);
+            $table->string('status')->default(0);
+            $table->string('bukti_payment')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chekouts');
+        Schema::dropIfExists('checkouts');
     }
 };

@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Chekout extends Model
+class Checkout extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'status',
+        'bukti_payment'
+    ];
 
     public function peminjaman()
     {

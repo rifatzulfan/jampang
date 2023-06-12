@@ -35,7 +35,7 @@ class Peminjaman extends Model
 
     public function checkouts()
     {
-        return $this->hasMany(Chekout::class);
+        return $this->hasMany(Checkout::class);
     }
 
     public function jadwals()

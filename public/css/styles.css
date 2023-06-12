@@ -82,6 +82,10 @@ button:disabled {
     width: 100%;
 }
 
+.btn-primary-2:hover{
+    background-color: #0b4986;
+}
+
 .rectangle {
     background: linear-gradient(270deg, #b47654 7.05%, #212529 89.3%);
     height: 8px;
@@ -408,6 +412,14 @@ input:-webkit-autofill:active {
     background-color: #ffe5e8;
 }
 
+.btn-bayar {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: solid 1px #0b5eb1;
+    color: #fff;
+    background-color: #0b5eb1;
+}
+
 /* DROPDOWN */
 
 .dropdown {
@@ -567,3 +579,14 @@ input:-webkit-autofill:active {
 .fc-direction-ltr .fc-daygrid-event.fc-event-start {
     margin-left: 8px;
 }
+
+.modal-header,
+.modal-footer {
+    border: none !important;
+}
+
+.modal-body {
+    padding: 0 24px 24px 24px !important;
+}
+
+

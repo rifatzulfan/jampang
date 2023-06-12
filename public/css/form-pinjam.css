@@ -61,6 +61,7 @@
     background-color: #2c3e50;
     border-radius: 8px;
     cursor: pointer;
+    border: none !important;
 }
 
 .remove-input {
@@ -79,10 +80,10 @@
     border-radius: 8px;
 }
 
-.info{
-  display: flex;
-  width: 50%;
-  gap: 16px;
+.info {
+    display: flex;
+    width: 50%;
+    gap: 16px;
 }
 
 @media screen and (max-width: 600px) {
@@ -95,8 +96,8 @@
     .section-heading p {
         font-size: 16px;
     }
-    label{
-      font-size: 16px;
+    label {
+        font-size: 16px;
     }
 }
 
@@ -104,7 +105,6 @@
     margin-bottom: 64px;
 }
 
-
-label{
-  font-size: 18px;
+label {
+    font-size: 18px;
 }

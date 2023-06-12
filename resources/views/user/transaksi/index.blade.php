@@ -15,9 +15,9 @@
 
             <!-- /#page-content-wrapper -->
             <div class="section-heading">
-                <h3>Peminjaman</h3>
+                <h3>Transaksi</h3>
                 <div class="rectangle"></div>
-                <p>Peminjaman</p>
+                <p>Transaksi</p>
             </div>
             <div class="dashboard-container">
                 <div class="table-function d-block d-lg-flex mb-4">
@@ -61,45 +61,30 @@
                             <tr>
                                 <th>No</th>
                                 <th>Atas Nama</th>
-                                <th>Phone</th>
-                                <th>Kegunaan</th>
-                                <th>Tanggal</th>
-                                <th>Jam</th>
+                                <th>Staff</th>
+                                <th>Tarif</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($peminjamen as $peminjaman)
+                            @foreach ($checkouts as $checkout)
                             <tr>
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
-                                <td style="width: 140px;" class="">{{$peminjaman->name}}</td>
-                                <td class="">{{$peminjaman->phone}}</td>
-                                <td class="">{{$peminjaman->kegunaan->name}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->peminjaman->name}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
                                 <td class="">
-                                    @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class="">{{$jadwal->tanggal}}</span> <br>
-                                    @endforeach
-                                </td>
-                                <td class="">
-                                    @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class=""> {{$jadwal->jammulai}} - {{$jadwal->jamselesai}}</span> <br>
-                                    @endforeach
-                                </td>
-                                <td class="">
-                                    <div class="badge {{ $peminjaman->status == 'diproses' ? 'warning' : ($peminjaman->status == 'diterima' ? 'success' : 'danger') }}">
-                                        <span>{{$peminjaman->status}}</span>
+                                    <div class="badge {{ $checkout->status == 'Menunggu Pembayaran' ? 'warning' : ($checkout->status == 'Sukses' ? 'success' : 'danger') }}">
+                                        <span>{{$checkout->status}}</span>
                                     </div>
-                                    @if($peminjaman->status == 'ditolak')
-                                    <img src="{{asset('images/info-red.svg')}}" data-toggle="tooltip" data-bs-custom-class="tooltip" title="{{$peminjaman->message}}" class="mr-1" alt="">
-                                    @endif
                                 </td>
                                 <td style="width: 128px;" class="text-end">
 
-                                    <a href="{{route('peminjaman-user.show',$peminjaman->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
-                                        <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
-                                    </a>
-                                    @if ($peminjaman->status === 'diproses')
+                                    <button class="btn-bayar my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Bayar
+                                    </button>
+                                    @if ($checkout->status === 'Menunggu Pembayaran')
                                     <button class="btn-batal my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Batal
                                     </button>
@@ -119,10 +104,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <form action="{{ route('peminjaman-user.cancel', $peminjaman->id) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger my-3 my-sm-0" >Batalkan Peminjaman</button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-danger">Batalkan Peminjaman</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,21 +116,14 @@
                     </table>
                 </div>
                 <div aria-label="Page navigation example" class="mt-4">
-                    {!! $peminjamen->links() !!}
+                    {!! $checkouts->links() !!}
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
-<script>
-    $(document).ready(function() {
-        $("body").tooltip({
-            selector: '[data-toggle=tooltip]'
-        });
-    });
-</script>
+
 
 <script>
     $(document).ready(function() {
@@ -165,7 +140,7 @@
                     .filter(function() {
                         // Compare search term with status text
                         var statusText = $(this)
-                            .find("td div span")
+                            .find("td span")
                             .filter(function() {
                                 return $(this)
                                     .text()
@@ -176,12 +151,11 @@
                             .text()
                             .toLowerCase();
                         return statusText === status.toLowerCase();
-                    }).show();
+                    }).show()
             }
         });
     });
 </script>
-
 </div>
 <!-- /#wrapper -->
 

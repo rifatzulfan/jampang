@@ -89,21 +89,6 @@
         });
     </script>
     <script>
-        $(document).ready(function() {
-            $("#cari").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tbody tr")
-                    .filter(function() {
-                        // Exclude table head row
-                        return !$(this).hasClass("thead-row");
-                    })
-                    .each(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                    });
-            });
-        });
-    </script>
-    <script>
         const myModal = document.getElementById('myModal')
         const myInput = document.getElementById('myInput')
 

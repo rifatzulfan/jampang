@@ -10,9 +10,22 @@ class KegunaanController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
-        $kegunaans = Kegunaan::orderBy('id', 'desc')->paginate(6);
+        $query = $request->input('cari');
+
+        if ($request->has('clear')) {
+            // Clear the search query
+            $query = null;
+        }
+        $kegunaans = Kegunaan::when($query, function ($query) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->input('cari') . '%');
+            });
+        })
+            ->orderBy('id', 'desc')
+            ->paginate(6)
+            ->appends(['cari' => $query]);
         return view('admin.kegunaan.index', compact('kegunaans'));
     }
 

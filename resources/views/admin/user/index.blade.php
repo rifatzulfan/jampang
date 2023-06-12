@@ -18,15 +18,23 @@
             </div>
             <div class="dashboard-container">
                 <div class="table-function d-block d-lg-flex mb-4">
-                    <input style="max-width: 420px" type="text" class="input-custom mb-2 mb-lg-0" id="cari" placeholder="Cari" />
-                    <a href="{{route('user.create')}}" style="width: fit-content;" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
-
+                    <form action="{{ route('user.index') }}" method="GET" class="mb-2">
+                        <div class="d-flex">
+                            <input style="max-width: 420px" type="text" class="input-custom" id="cari" name="cari" placeholder="Cari" value="{{ request('cari') }}" />
+                            <button type="submit" style="margin-left:8px; padding: 6px 12px; width:fit-content;" class="btn-primary-2 "><img class="py-2" src="{{asset('images/ri-search-line.svg')}}" alt=""></button>
+                            @if (request('cari'))
+                            <a href="{{ route('user.index', ['clear' => true]) }}" class="mx-2"><img class="py-3" src="{{asset('images/clear.svg')}}" alt=""></a>
+                            @endif
+                        </div>
+                    </form>
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
                 </div>
                 @endif
+
+
                 <div class="table-responsive">
                     <table id="myTable" class="table table-bordered rounded rounded-3 overflow-hidden">
                         <thead class="table-light">
@@ -39,10 +47,16 @@
                                 <th></th>
                             </tr>
                         </thead>
+                        @php
+                        $iteration = ($users->currentPage() - 1) * $users->perPage();
+                        @endphp
                         <tbody>
                             @foreach ($users as $user)
+                            @php
+                            $iteration++;
+                            @endphp
                             <tr>
-                                <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
+                                <th style="width: 48px;" scope="row">{{$iteration}}</th>
                                 <td class="w-25">{{$user->name}}</td>
                                 <td class="">{{$user->email}}</td>
                                 <td class="">{{$user->phone}}</td>

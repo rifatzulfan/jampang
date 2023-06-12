@@ -3,7 +3,33 @@
 @section('content')
 <div id="wrapper" class="">
 
-    @include('components/dashboard/sidebar')
+    @include('components/dashboard/sidebar-user')
+    @if ($message = Session::get('success'))
+    <div class="modal fade show" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Sukses Sewa Staff</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div style="padding-bottom: 48px !important;" class="modal-body text-center">
+                    <img src="{{asset('images/success-state.png')}}" alt="" class="mb-2 mx-auto">
+                    <h2 class="mb-2">Yess Sukses!!</h2>
+                    <p class="mb-5">
+                        {{ $message }}
+                    </p>
+                    <a href="{{route('transaksi-user.index')}}" class="btn-primary-2" data-bs-dismiss="">Selesaikan Pembayaran</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            myModal.show();
+        });
+    </script>
+    @endif
 
     <!-- Page Content -->
     <div class="container">
@@ -88,10 +114,25 @@
                                 </div>
                             </div>
 
+
                             <hr class="d-block d-sm-none" />
                         </div>
                         <hr class="vhr d-none d-sm-block" />
                         <div class="right">
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="kegunaan">Status</label>
+                                </p>
+                                <input class="input-custom" type="text" value="{{$peminjaman->status}}" disabled />
+                            </div>
+                            @if ($peminjaman->status === 'ditolak')
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="kegunaan">Pesan</label>
+                                </p>
+                                <input class="input-custom" type="text" value="{{$peminjaman->message}}" disabled />
+                            </div>
+                            @endif
                             <div class="input mb-3">
                                 <div id="tanggal-container" class="mb-3">
                                     @foreach ($peminjaman->jadwals as $jadwal)
@@ -157,42 +198,118 @@
                     </div>
                 </form>
                 @endif
+                @if ($peminjaman->staff_id === null && $peminjaman->status === 'diterima')
+
                 <hr class="my-4">
-                <div id="#status" class="section-heading p-0">
-                    <h4>Ubah Status</h4>
+                <div class="section-heading p-0">
+
+                    <div class="">
+                        <h4>Sewa Staff?</h4>
+                        <p class="text-start">Sewa staff untuk Kelengkapan Voli</p>
+                    </div>
+                    @endif
+
                 </div>
-                <form action="{{route('peminjaman.update', $peminjaman->id)}}" method="post">
+
+
+
+                @if ($peminjaman->staff_id === null && $peminjaman->status === 'diterima')
+                <form id="myForm" enctype="multipart/form-data" action="{{route('peminjaman-user.sewa', $peminjaman->id)}}" method="POST" class="form-submit">
                     @csrf
                     @method('PUT')
                     <div class="input mb-3">
                         <p class="mb-2">
-                            <label for="kegunaan">Status</label>
+                            <label for="kegunaan">Pilih Staff</label>
                         </p>
                         <div class="select">
-                            <select name="status" id="status" class="input-custom">
-                                <option selected hidden value="{{ $peminjaman->status }}">{{ $peminjaman->status }}</option>
-                                <option value="diterima">diterima</option>
-                                <option value="diproses">diproses</option>
-                                <option value="ditolak">ditolak</option>
+                            <select name="staff" id="staff" class="input-custom">
+                                <option selected hidden value="">Pilih Staff</option>
+                                @foreach ($staffs as $staff)
+                                <option value="{{ $staff->id }}">{{ $staff->name }} - {{$staff->price}} - {{$staff->description}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="input mb-3 pesan" style="display: none;">
-                        <p class="mb-2">
-                            <label for="message">Pesan</label>
-                        </p>
-                        <input class="input-custom " type="text" name="message" placeholder="Masukan pesan alasan ditolak" value="" />
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModal">Sewa Staff</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <p>Anda akan menyewa Staff Voli <span style="font-weight: bold;" id="selectedStaffName">
+                                        </span> dengan tarif Rp. <span style="font-weight: bold;" id="selectedStaffPrice"></span> pada jadwal
+                                        @foreach ($peminjaman->jadwals as $jadwal) {{$jadwal->tanggal}} @endforeach dengan detail :</p>
+                                    <div class="d-lg-flex d-block">
+                                        <div class="left">
+                                            <div class="input mb-3" style="padding-right: 8px;">
+                                                <p class="mb-2">
+                                                    <label for="kegunaan">Jumlah Jadwal</label>
+                                                </p>
+                                                <input class="input-custom" type="text" id="jumlah" value="{{count($peminjaman->jadwals)}}" disabled />
+                                            </div>
+                                            <hr class="d-block d-sm-none" />
+                                        </div>
+                                        <script>
+                                        </script>
+                                        <hr class="vhr d-none d-sm-block" />
+                                        <div class="right">
+                                            <div class="input mb-3" style="padding-left: 8px;">
+                                                <p class="mb-2">
+                                                    <label for="kegunaan">Total Pembayaran</label>
+                                                </p>
+                                                <input class="input-custom" type="text" id="total" value="" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-primary-2" data-bs-dismiss="modal">Iya Sewa Staff</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="submit" value="Perbarui Status" class="btn-primary-2 mt-2">
 
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                            myModal.show();
+                        });
+                    </script>
                 </form>
+                <button disabled class="btn-primary-2 mt-2" id="sewa" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Sewa
+                </button>
+                @endif
             </div>
-
         </div>
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#staff').change(function() {
+            var selectedStaffName = $(this).find('option:selected').text().split(' - ')[0];
+            var selectedStaffPrice = $(this).find('option:selected').text().split(' - ')[1];
+            $('#selectedStaffName').text(selectedStaffName);
+            $('#selectedStaffPrice').text(selectedStaffPrice);
 
+            var selectedValue = $(this).val();
+            if (selectedValue === "") {
+                $('.btn-primary-2').prop('disabled', true);
+            } else {
+                $('.btn-primary-2').prop('disabled', false);
+            }
+
+            var jumlahJadwal = parseInt($('#jumlah').val());
+            var totalPembayaran = parseInt(selectedStaffPrice) * jumlahJadwal;
+            $('#total').val(totalPembayaran);
+        });
+
+    });
+</script>
+<script>
+</script>
 <script>
     $(document).ready(function() {
         $('#status').change(function() {
@@ -205,5 +322,20 @@
             }
         });
     });
+</script>
+
+<script>
+    const inputStaff = document.getElementById("staff");
+    const submitBtn = document.getElementById("sewa");
+
+    inputStaff.addEventListener("input", validateInputs);
+
+    function validateInputs() {
+        if (inputStaff.value() !== "") {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
 </script>
 @endsection

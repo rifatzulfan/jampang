@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -13,9 +12,24 @@ class UserController extends Controller
     //
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id', 'desc')->paginate(6);
+
+        $query = $request->input('cari');
+
+        if ($request->has('clear')) {
+            // Clear the search query
+            $query = null;
+        }
+        $users = User::when($query, function ($query) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->input('cari') . '%')
+                    ->orWhere('phone', 'like', '%' . $request->input('cari') . '%');
+            });
+        })
+            ->orderBy('id', 'desc')
+            ->paginate(6)
+            ->appends(['cari' => $query]);
         return view('admin.user.index', compact('users'));
     }
 
@@ -44,7 +58,6 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('admin.user.edit', compact('user'));
-
     }
 
     public function update(Request $request, User $user)

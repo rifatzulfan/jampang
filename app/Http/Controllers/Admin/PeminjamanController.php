@@ -13,9 +13,24 @@ use App\Models\Instansi;
 class PeminjamanController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $peminjamen = Peminjaman::with('jadwals')->orderBy('id', 'desc')->paginate(6);
+        $query = $request->input('cari');
+
+        if ($request->has('clear')) {
+            // Clear the search query
+            $query = null;
+        }
+        $peminjamen = Peminjaman::with('jadwals')
+            ->when($query, function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->input('cari') . '%')
+                        ->orWhere('phone', 'like', '%' . $request->input('cari') . '%');
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(6)
+            ->appends(['cari' => $query]);
         return view('admin.peminjaman.index', compact('peminjamen'));
     }
 
@@ -122,6 +137,7 @@ class PeminjamanController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(), [
             'status' => 'required',
+            'message' => $request->status == 'ditolak' ? 'required' : ''
         ]);
 
         if ($validator->fails()) {
@@ -133,6 +149,7 @@ class PeminjamanController extends Controller
 
         // Perbarui data peminjaman
         $peminjaman->status = $request->status;
+        $peminjaman->message = $request->message;
         $peminjaman->save();
 
 

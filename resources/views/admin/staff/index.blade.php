@@ -17,8 +17,16 @@
                 <p>Staff</p>
             </div>
             <div class="dashboard-container">
-                <div class="table-function d-block d-lg-flex mb-4">
-                    <input style="max-width: 420px" type="text" class="input-custom mb-2 mb-lg-0" id="cari" placeholder="Cari" />
+                <div class="table-function d-block d-lg-flex mb-4 align-items-baseline">
+                    <form action="{{ route('staff.index') }}" method="GET" class="mb-2">
+                        <div class="d-flex mb-4 mb-lg-0">
+                            <input style="max-width: 420px" type="text" class="input-custom" id="cari" name="cari" placeholder="Cari" value="{{ request('cari') }}" />
+                            <button type="submit" style="margin-left:8px; padding: 6px 12px; width:fit-content;" class="btn-primary-2 "><img class="py-2" src="{{asset('images/ri-search-line.svg')}}" alt=""></button>
+                            @if (request('cari'))
+                            <a href="{{ route('staff.index', ['clear' => true]) }}" class="mx-2"><img class="py-3" src="{{asset('images/clear.svg')}}" alt=""></a>
+                            @endif
+                        </div>
+                    </form>
                     <a href="{{route('staff.create')}}" style="width: fit-content;" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
 
                 </div>
@@ -38,15 +46,21 @@
                                 <th></th>
                             </tr>
                         </thead>
+                        @php
+                        $iteration = ($staffs->currentPage() - 1) * $staffs->perPage();
+                        @endphp
                         <tbody>
                             @foreach ($staffs as $staff)
+                            @php
+                            $iteration++;
+                            @endphp
                             <tr>
-                                <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
+                                <th style="width: 48px;" scope="row">{{$iteration}}</th>
                                 <td class="w-25">{{$staff->name}}</td>
                                 <td class="w-25">{{$staff->price}}</td>
                                 <td class="w-25">{{$staff->description}}</td>
                                 <td style="width: 128px;" class="text-end">
-                                    <div class="modal fade" id="exampleModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">

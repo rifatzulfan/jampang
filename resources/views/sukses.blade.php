@@ -19,7 +19,11 @@
                     Horay peminjaman sukses diajukan cek dashboard untuk lihat status
                     peminjaman kamu
                 </p>
-                <a href="#" class="btn-primary-2 mt-2 d-block">Cek Status</a>
+                @if(Auth::user()->role == 'User')
+                <a href="{{ route('peminjaman-user.index') }}" class="btn-primary-2 mt-2 d-block">Cek Status</a>
+                @elseif(Auth::user()->role == 'Admin' || Auth::user()->role == 'Superadmin')
+                <a href="{{ route('peminjaman.index') }}" class="btn-primary-2 mt-2 d-block">Cek Status</a>
+                @endif
             </div>
         </div>
     </div>

@@ -12,13 +12,32 @@
         </div>
 
         @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="modal fade show" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="errorModalLabel">Jadwal Tabrakan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="{{asset('images/waduh.png')}}" alt="" class="mb-2 mx-auto">
+                        <h2 class="mb-2">Waduh!!</h2>
+                        <p class="mb-5">
+                            @foreach($errors->all() as $error)
+                            {{ $error }}
+                            @endforeach
+                        </p>
+                        <button type="button" class="btn-primary-2" data-bs-dismiss="modal">Pilih Jadwal lain</button>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                myModal.show();
+            });
+        </script>
         @endif
 
         @if ($message = Session::get('success'))
@@ -421,8 +440,23 @@
         var calendarEl = document.getElementById("calendar");
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: "dayGridMonth",
-            contentHeight: 600
+            contentHeight: 700,
+            events: JSON.parse('{!! $jsonEvents !!}'),
+            eventContent: function(info) {
+                var eventTitle = info.event.title;
+                var additionalInfo = info.event.extendedProps.additionalInfo;
+                return {
+                    html: '<div class="fc-content"><div class="fc-title">' +
+                        eventTitle +
+                        '</div><div class="fc-additional-info">' +
+                        additionalInfo +
+                        "</div></div>",
+                };
+            },
+
         });
+
+
         calendar.render();
     });
 </script>

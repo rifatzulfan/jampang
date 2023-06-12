@@ -9,9 +9,22 @@ use App\Models\Staff;
 class StaffController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $staffs = Staff::orderBy('id', 'desc')->paginate(6);
+        $query = $request->input('cari');
+
+        if ($request->has('clear')) {
+            // Clear the search query
+            $query = null;
+        }
+        $staffs = Staff::when($query, function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->input('cari') . '%');
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(6)
+            ->appends(['cari' => $query]);
         return view('admin.staff.index', compact('staffs'));
     }
 

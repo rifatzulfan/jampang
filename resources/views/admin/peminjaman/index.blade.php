@@ -18,15 +18,24 @@
             </div>
             <div class="dashboard-container">
                 <div class="table-function d-block d-lg-flex mb-4">
-                    <input style="max-width: 420px" type="text" class="input-custom mb-2 mb-lg-0" id="cari" placeholder="Cari" />
+                    <form action="{{ route('peminjaman.index') }}" method="GET" class="mb-2">
+                        <div class="d-flex">
+                            <input style="max-width: 420px" type="text" class="input-custom" id="cari" name="cari" placeholder="Cari" value="{{ request('cari') }}" />
+                            <button type="submit" style="margin-left:8px; padding: 6px 12px; width:fit-content;" class="btn-primary-2 "><img class="py-2" src="{{asset('images/ri-search-line.svg')}}" alt=""></button>
+                            @if (request('cari'))
+                            <a href="{{ route('peminjaman.index', ['clear' => true]) }}" class="mx-2"><img class="py-3" src="{{asset('images/clear.svg')}}" alt=""></a>
+                            @endif
+                        </div>
+                    </form>
                     <div class="action">
+
                         <label class="dropdown mx-0 mx-sm-1">
                             <div class="dd-button">
                                 <img width="22" height="22" src="{{asset('images/Filter.svg')}}" alt="" />
                                 <span class="mx-2">Filter</span>
                             </div>
 
-                            <input type="checkbox" class="dd-input" id="test" />
+                            <input type="checkbox" class="dd-input" id="statusFilter" />
 
                             <ul class="dd-menu">
                                 <p>Status</p>
@@ -128,35 +137,30 @@
     </div>
 </div>
 
+
 <script>
     $(document).ready(function() {
+        var selectedStatus = "all"; // Default selected status is "all"
+
         // Handle dropdown item click event
         $(".dd-menu li").click(function() {
             // Get selected status
-            var status = $(this).data("status");
-            // Show/hide table rows based on selected status
-            if (status == "all") {
-                $("#myTable tbody tr").show();
-            } else {
-                $("#myTable tbody tr")
-                    .hide()
-                    .filter(function() {
-                        // Compare search term with status text
-                        var statusText = $(this)
-                            .find("td span")
-                            .filter(function() {
-                                return $(this)
-                                    .text()
-                                    .toLowerCase()
-                                    .includes(status.toLowerCase());
-                            })
-                            .first()
-                            .text()
-                            .toLowerCase();
-                        return statusText === status.toLowerCase();
-                    }).show()
-            }
+            selectedStatus = $(this).data("status");
+
+            filterTableRows();
         });
+
+        // Filter table rows based on selected status
+        function filterTableRows() {
+            $("#myTable tbody tr").hide().filter(function() {
+                var statusText = $(this)
+                    .find("td div span")
+                    .first()
+                    .text()
+                    .toLowerCase();
+                return selectedStatus === "all" || statusText === selectedStatus.toLowerCase();
+            }).show();
+        }
     });
 </script>
 

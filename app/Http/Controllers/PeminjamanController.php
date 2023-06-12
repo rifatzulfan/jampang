@@ -12,14 +12,49 @@ use Illuminate\Support\Facades\Validator;
 class PeminjamanController extends Controller
 {
     //
+    public $sources = [
+        [
+            'model'      => Jadwal::class,
+            'date_field' => 'tanggal',
+            'field'      => 'peminjaman_id',
+            'mulai'      => 'jammulai',
+            'selesai'      => 'jamselesai',
+            'prefix'     => '',
+            'suffix'     => '',
+        ],
+    ];
 
     public function index()
     {
         $kegunaans = Kegunaan::all();
-        $instansis = Instansi::all();
-        return view('peminjaman', compact('kegunaans', 'instansis'));
-    }
+        $instansis = Instansi::all(); {
+            $peminjamans = [];
 
+            foreach ($this->sources as $source) {
+                $models = $source['model']::whereHas('peminjaman', function ($query) {
+                    $query->where('status', 'diterima');
+                })->get();
+                foreach ($models as $model) {
+                    $tanggal = $model->getOriginal($source['date_field']);
+                    $mulai = $model->getOriginal($source['mulai']);
+                    $selesai = $model->getOriginal($source['selesai']);
+                    $name = Peminjaman::findOrFail($model->getOriginal($source['field']));
+
+                    if (!$tanggal) {
+                        continue;
+                    }
+                    $peminjamans[] = [
+                        'title' => $name->name,
+                        'start' => $tanggal,
+                        'additionalInfo' => $mulai . '-' . $selesai,
+                    ];
+                }
+            }
+            $jsonEvents = json_encode($peminjamans);
+
+            return view('peminjaman', compact('kegunaans', 'instansis', 'jsonEvents'));
+        }
+    }
     public function store(Request $request)
     {
         // Validasi input
@@ -51,8 +86,6 @@ class PeminjamanController extends Controller
                                     });
                             })
                             ->first();
-
-
                         if ($jadwal && $key !== $attribute) {
                             $fail("Jam yang kamu pilih tabrakan
                             Pilih tanggal atau jam yang kosong yaa!!");

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\InstansiController;
 use App\Http\Controllers\Admin\KegunaanController;
 use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\TransaksiController as AdminTransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\SuksesPageController;
+use App\Http\Controllers\User\SewaController;
+use App\Http\Controllers\User\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,7 @@ Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Admin,Superadmin'])
     Route::resource('kegunaan', KegunaanController::class);
     Route::resource('staff', StaffController::class);
     Route::resource('instansi', InstansiController::class);
+    Route::resource('transaksi', AdminTransaksiController::class);
 });
 
 Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Superadmin'])->group(function () {
@@ -70,5 +74,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('/dashboard')->middleware(['auth', 'role:User'])->group(function () {
     Route::get('/peminjaman', [UserDashboardController::class, 'index'])->name('peminjaman-user.index');
+    Route::get('/peminjaman/{id}', [UserDashboardController::class, 'show'])->name('peminjaman-user.show');
+    Route::post('peminjaman-user/cancel/{id}', [UserDashboardController::class, 'cancelPeminjaman'])->name('peminjaman-user.cancel');
+
+    Route::put('/peminjaman/{id}', [SewaController::class, 'store'])->name('peminjaman-user.sewa');
+
+
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi-user.index');
 });
 Route::get('/success', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
