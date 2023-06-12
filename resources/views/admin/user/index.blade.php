@@ -27,6 +27,8 @@
                             @endif
                         </div>
                     </form>
+                    <a href="{{route('user.create')}}" style="width: fit-content;" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
+
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">

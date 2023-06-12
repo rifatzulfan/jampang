@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $AdminUser = [
+        $User = [
             [
                 'name' => 'rifat',
                 'email' => 'rifat@gmail.com',
@@ -23,9 +23,17 @@ class UserSeeder extends Seeder
                 'email_verified_at' => date('Y-m-d H:i:s', time()),
                 'password' => \bcrypt('password'),
                 'role' => 'Superadmin'
-            ]
+            ],
+            [
+                'name' => 'Alexis MacAlisster',
+                'email' => 'mac@gmail.com',
+                'phone' => '081390220345',
+                'email_verified_at' => date('Y-m-d H:i:s', time()),
+                'password' => \bcrypt('password'),
+                'role' => 'User'
+            ],
         ];
 
-        User::insert($AdminUser);  //
+        User::insert($User);  //
     }
 }

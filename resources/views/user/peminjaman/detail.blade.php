@@ -260,7 +260,7 @@
                                                 <p class="mb-2">
                                                     <label for="kegunaan">Total Pembayaran</label>
                                                 </p>
-                                                <input class="input-custom" type="text" id="total" value="" disabled />
+                                                <input class="input-custom" type="text" id="total" name="total" value="" disabled />
                                             </div>
                                         </div>
                                     </div>
