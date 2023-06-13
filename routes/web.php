@@ -81,5 +81,9 @@ Route::prefix('/dashboard')->middleware(['auth', 'role:User'])->group(function (
 
 
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi-user.index');
+    Route::get('/transaksi/{id}', [TransaksiController::class, 'show'])->name('transaksi-user.show');
 });
 Route::get('/success', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
+
+Route::get('payment/success', [SewaController::class, 'midtransCallback']);
+Route::post('payment/success', [SewaController::class, 'midtransCallback']);

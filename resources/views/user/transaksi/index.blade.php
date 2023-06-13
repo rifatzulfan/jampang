@@ -75,20 +75,23 @@
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
                                 <td class="">
-                                    <div class="badge {{ $checkout->status == 'Menunggu Pembayaran' ? 'warning' : ($checkout->status == 'Sukses' ? 'success' : 'danger') }}">
-                                        <span>{{$checkout->status}}</span>
+                                    <div class="badge {{ $checkout->payment_status == 'pending' ? 'warning' : ($checkout->payment_status == 'paid' ? 'success' : 'danger') }}">
+                                        <span>{{$checkout->payment_status}}</span>
                                     </div>
                                 </td>
                                 <td style="width: 128px;" class="text-end">
 
-                                    <button class="btn-bayar my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Bayar
-                                    </button>
-                                    @if ($checkout->status === 'Menunggu Pembayaran')
-                                    <button class="btn-batal my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Batal
+                                    @if ($checkout->payment_status === 'pending')
+                                    <button class="btn-bayar my-3 my-sm-0">
+                                        <a style="color: white; text-decoration:none;" href="{{$checkout->midtrans_url}}">
+                                            Bayar
+                                        </a>
                                     </button>
                                     @endif
+
+                                    <a href="{{route('transaksi-user.show',$checkout->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
+                                        <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
+                                    </a>
 
 
                                     <!-- Modal -->

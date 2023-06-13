@@ -5,12 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>JAMPANG | UABVUB</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/form-pinjam.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/success-page.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/styles.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/home.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/auth.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/form-pinjam.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/success-page.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ secure_asset('css/admin/dashboard.css') }}" type="text/css">
+
 
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
@@ -20,6 +21,7 @@
     <!-- jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
 </head>

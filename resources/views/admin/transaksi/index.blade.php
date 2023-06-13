@@ -60,7 +60,8 @@
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
-                                <th>Atas Nama</th>
+                                <th>Peminjaman</th>
+                                <th>Pengaju</th>
                                 <th>Staff</th>
                                 <th>Tarif</th>
                                 <th>Status</th>
@@ -68,47 +69,24 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach ($checkouts as $checkout)
                             <tr>
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->name}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->peminjaman->user->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
                                 <td class="">
-                                    <div class="badge {{ $checkout->status == 'Menunggu Pembayaran' ? 'warning' : ($checkout->status == 'diterima' ? 'success' : 'danger') }}">
-                                        <span>{{$checkout->status}}</span>
+                                    <div class="badge {{ $checkout->payment_status == 'pending' ? 'warning' : ($checkout->payment_status == 'paid' ? 'success' : 'danger') }}">
+                                        <span>{{$checkout->payment_status}}</span>
                                     </div>
                                 </td>
                                 <td style="width: 128px;" class="text-end">
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Kepentingan</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body text-start">
-                                                    Kamu akan menghapus transaksi {{$checkout->id}}
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                    <form action="{{route('transaksi.destroy',$checkout->id)}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <a href="{{route('transaksi.edit',$checkout->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
-                                        <img src="{{asset('images/edit.svg')}}" style="cursor: pointer" alt="" />
+                                    <a href="{{route('transaksi.show',$checkout->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
+                                        <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
                                     </a>
-                                    <button class="btn-delete my-3 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <img src="{{asset('images/delete.svg')}}" style="cursor: pointer" alt="" />
-                                    </button>
-                                </td>
 
                             </tr>
                             @endforeach

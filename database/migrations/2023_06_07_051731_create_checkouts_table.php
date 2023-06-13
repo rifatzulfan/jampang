@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('peminjaman_id')->unsigned();
-            $table->string('status')->default(0);
-            $table->string('bukti_payment')->default(0);
+            $table->string('total_payment')->nullable();
+            $table->string('payment_status')->default('pending');
+            $table->string('midtrans_url')->nullable();
+            $table->string('midtrans_booking_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

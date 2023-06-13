@@ -30,4 +30,14 @@ class TransaksiController extends Controller
             ->appends(['cari' => $query]);
         return view('admin.transaksi.index', compact('checkouts'));
     }
+
+    public function show($id)
+    {
+        $checkout = Checkout::with('peminjaman')->find($id);
+        if (!$checkout) {
+            abort(404);
+        }
+        // Mengembalikan view bersama dengan data $peminjaman
+        return view('admin.transaksi.detail', compact('checkout'));
+    }
 }

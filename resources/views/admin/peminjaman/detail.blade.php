@@ -74,7 +74,7 @@
 
                             <div class="input mb-3">
                                 <p class="mb-2">
-                                    <label for="kegunaan">Kegunaan</label>
+                                    <label for="kegunaan">Surat</label>
                                 </p>
                                 <div class="col-12">
                                     <div class="row">
