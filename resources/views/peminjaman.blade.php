@@ -61,7 +61,7 @@
                             <p class="mb-2">
                                 <label for="phone">No Telp</label>
                             </p>
-                            <input name="phone" id="phone" class="input-custom" type="text" placeholder="Masukan nomor telepon kamu" />
+                            <input name="phone" id="phone" class="input-custom" value="{{Auth()->user()->phone}}" type="text" placeholder="Masukan nomor telepon kamu" />
                         </div>
                         <div class="input mb-3">
                             <p class="mb-2">

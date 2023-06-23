@@ -31,23 +31,33 @@
                         </div>
                     </form>
                     <div class="action">
-                        <label class="dropdown mx-0 mx-sm-1">
-                            <div class="dd-button">
-                                <img width="22" height="22" src="{{asset('images/Filter.svg')}}" alt="" />
-                                <span class="mx-2">Filter</span>
-                            </div>
+                        <form class=" mx-0 mx-sm-1" action="{{ route('transaksi.index') }}" method="GET">
+                            <label class="dropdown">
+                                <div class="dd-button">
+                                    <img width="22" height="22" src="{{ asset('images/Filter.svg') }}" alt="" />
+                                    <span class="mx-2">Filter</span>
+                                </div>
 
-                            <input type="checkbox" class="dd-input" id="test" />
+                                <input type="checkbox" class="dd-input" id="test" />
 
-                            <ul class="dd-menu">
-                                <p>Status</p>
-                                <li class="divider m-0"></li>
-                                <li data-status="all">Semua</li>
-                                <li data-status="diterima">Diterima</li>
-                                <li data-status="diproses">Diproses</li>
-                                <li data-status="ditolak">Ditolak</li>
-                            </ul>
-                        </label>
+                                <ul class="dd-menu">
+                                    <p>Status</p>
+                                    <li class="divider m-0"></li>
+                                    <li>
+                                        <a href="{{ route('transaksi.index') }}" style="text-decoration: none; color:#212529">Semua</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('transaksi.index', ['payment_status' => 'paid']) }}" style="text-decoration: none; color:#212529">Paid</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('transaksi.index', ['payment_status' => 'pending']) }}" style="text-decoration: none; color:#212529">Pending</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('transaksi.index', ['payment_status' => 'expired']) }}" style="text-decoration: none; color:#212529">Expired</a>
+                                    </li>
+                                </ul>
+                            </label>
+                        </form>
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
@@ -63,6 +73,7 @@
                                 <th>Atas Nama</th>
                                 <th>Staff</th>
                                 <th>Tarif</th>
+                                <th>Tanggal Transaksi</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -74,6 +85,7 @@
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->created_at->format('Y-m-d H:i:s')}}</td>
                                 <td class="">
                                     <div class="badge {{ $checkout->payment_status == 'pending' ? 'warning' : ($checkout->payment_status == 'paid' ? 'success' : 'danger') }}">
                                         <span>{{$checkout->payment_status}}</span>

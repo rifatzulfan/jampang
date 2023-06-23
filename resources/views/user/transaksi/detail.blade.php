@@ -54,6 +54,13 @@
                         <input class="input-custom" type="text" value="{{$checkout->total_payment}}" disabled />
 
                     </div>
+                    <div class="input mb-3">
+                        <p class="mb-2">
+                            <label for="kegunaan">Tanggal Transaksi</label>
+                        </p>
+                        <input class="input-custom" type="text" value="{{$checkout->created_at->format('Y-m-d H:i:s')}}" disabled />
+
+                    </div>
 
 
                 </div>

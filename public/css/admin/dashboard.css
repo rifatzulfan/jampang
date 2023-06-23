@@ -198,6 +198,8 @@ body {
 
 .action {
     max-height: 65px;
+    display: flex;
+    align-items: baseline;
 }
 
 #exportBtn {

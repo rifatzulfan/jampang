@@ -28,24 +28,34 @@
                         </div>
                     </form>
                     <div class="action">
+                        <form class=" mx-0 mx-sm-1" action="{{ route('peminjaman.index') }}" method="GET">
+                            <label class="dropdown">
+                                <div class="dd-button">
+                                    <img width="22" height="22" src="{{ asset('images/Filter.svg') }}" alt="" />
+                                    <span class="mx-2">Filter</span>
+                                </div>
 
-                        <label class="dropdown mx-0 mx-sm-1">
-                            <div class="dd-button">
-                                <img width="22" height="22" src="{{asset('images/Filter.svg')}}" alt="" />
-                                <span class="mx-2">Filter</span>
-                            </div>
+                                <input type="checkbox" class="dd-input" id="test" />
 
-                            <input type="checkbox" class="dd-input" id="statusFilter" />
+                                <ul class="dd-menu">
+                                    <p>Status</p>
+                                    <li class="divider m-0"></li>
+                                    <li>
+                                        <a href="{{ route('peminjaman.index') }}" style="text-decoration: none; color:#212529">Semua</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('peminjaman.index', ['status' => 'diterima']) }}" style="text-decoration: none; color:#212529">Diterima</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('peminjaman.index', ['status' => 'diproses']) }}" style="text-decoration: none; color:#212529">Diproses</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('peminjaman.index', ['status' => 'ditolak']) }}" style="text-decoration: none; color:#212529">Ditolak</a>
+                                    </li>
+                                </ul>
+                            </label>
+                        </form>
 
-                            <ul class="dd-menu">
-                                <p>Status</p>
-                                <li class="divider m-0"></li>
-                                <li data-status="all">Semua</li>
-                                <li data-status="diterima">Diterima</li>
-                                <li data-status="diproses">Diproses</li>
-                                <li data-status="ditolak">Ditolak</li>
-                            </ul>
-                        </label>
 
                         <a href="{{route('peminjaman.create')}}" class="btn-primary-2 mx-0 mx-sm-1">Tambah</a>
                         <button class="mx-3" id="exportBtn">
@@ -137,31 +147,5 @@
     </div>
 </div>
 
-
-<script>
-    $(document).ready(function() {
-        var selectedStatus = "all"; // Default selected status is "all"
-
-        // Handle dropdown item click event
-        $(".dd-menu li").click(function() {
-            // Get selected status
-            selectedStatus = $(this).data("status");
-
-            filterTableRows();
-        });
-
-        // Filter table rows based on selected status
-        function filterTableRows() {
-            $("#myTable tbody tr").hide().filter(function() {
-                var statusText = $(this)
-                    .find("td div span")
-                    .first()
-                    .text()
-                    .toLowerCase();
-                return selectedStatus === "all" || statusText === selectedStatus.toLowerCase();
-            }).show();
-        }
-    });
-</script>
 
 @endsection

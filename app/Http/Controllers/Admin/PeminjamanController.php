@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ScheduledApprove;
 use App\Models\Kegunaan;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Jadwal;
 use App\Models\Instansi;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanController extends Controller
 {
@@ -16,10 +18,12 @@ class PeminjamanController extends Controller
     public function index(Request $request)
     {
         $query = $request->input('cari');
+        $status = $request->input('status');
 
         if ($request->has('clear')) {
             // Clear the search query
             $query = null;
+            $status = null;
         }
         $peminjamen = Peminjaman::with('jadwals')
             ->when($query, function ($query) use ($request) {
@@ -27,6 +31,8 @@ class PeminjamanController extends Controller
                     $q->where('name', 'like', '%' . $request->input('cari') . '%')
                         ->orWhere('phone', 'like', '%' . $request->input('cari') . '%');
                 });
+            })->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
             })
             ->orderBy('id', 'desc')
             ->paginate(6)
@@ -152,6 +158,14 @@ class PeminjamanController extends Controller
         $peminjaman->message = $request->message;
         $peminjaman->save();
 
+        $user = $peminjaman->user;
+        $jadwal = Jadwal::findOrFail($id);
+
+        $scheduleApprove = new ScheduledApprove($user, null, $peminjaman, $jadwal);
+
+        // Send email to the user
+        Mail::to($user->email)->send($scheduleApprove);
+        // Pass $peminjaman to the NewScheduleCreated Mailable
 
         // Redirect ke halaman sukses
         return redirect()->route('peminjaman.index')->with('success', 'Status Peminjaman Sukses Diperbarui.');

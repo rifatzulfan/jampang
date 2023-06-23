@@ -16,10 +16,13 @@ class TransaksiController extends Controller
     {
 
         $query = $request->input('cari');
+        $payment_status = $request->input('payment_status');
+
 
         if ($request->has('clear')) {
             // Clear the search query
             $query = null;
+            $payment_status = null;
         }
         $user_id = Auth::user()->id;
 
@@ -32,6 +35,8 @@ class TransaksiController extends Controller
                     $q->where('name', 'like', '%' . $request->input('cari') . '%')
                         ->orWhere('phone', 'like', '%' . $request->input('cari') . '%');
                 });
+            })->when($payment_status, function ($query) use ($payment_status) {
+                $query->where('payment_status', $payment_status);
             })
             ->orderBy('id', 'desc')
             ->paginate(6)

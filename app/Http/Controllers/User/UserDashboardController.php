@@ -15,10 +15,12 @@ class UserDashboardController extends Controller
     {
 
         $query = $request->input('cari');
+        $status = $request->input('status');
 
         if ($request->has('clear')) {
             // Clear the search query
             $query = null;
+            $status = null;
         }
         $user_id = Auth::user()->id;
 
@@ -29,6 +31,8 @@ class UserDashboardController extends Controller
                     $q->where('name', 'like', '%' . $request->input('cari') . '%')
                         ->orWhere('phone', 'like', '%' . $request->input('cari') . '%');
                 });
+            })->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
             })
             ->orderBy('id', 'desc')
             ->paginate(6)
@@ -57,18 +61,18 @@ class UserDashboardController extends Controller
     public function cancelPeminjaman($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-        
+
         // Check if the peminjaman is in a cancelable status
         if ($peminjaman->status === 'diproses') {
             // Change the status to 'ditolak'
             $peminjaman->status = 'dibatalkan';
             $peminjaman->save();
-            
+
             // Optionally, you can send a notification or perform additional actions here
-            
+
             return redirect()->route('peminjaman-user.index')->with('success', 'Peminjaman berhasil dibatalkan.');
         }
-        
+
         return redirect()->route('peminjaman-user.index')->with('error', 'Peminjaman tidak dapat dibatalkan.');
     }
 }

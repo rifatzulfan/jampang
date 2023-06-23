@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Peminjaman;
 use App\Models\Jadwal;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\NewScheduleCreated;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class PeminjamanController extends Controller
 {
@@ -125,6 +128,21 @@ class PeminjamanController extends Controller
             $jadwal->jamselesai = $value['jamselesai'];
             $jadwal->peminjaman_id = $peminjaman->id;
             $jadwal->save();
+        }
+
+        $user = auth()->user();
+        // $adminEmails = User::where('role', 'admin')->pluck('email')->toArray();
+        $superAdminEmails = User::where('role', 'superadmin')->pluck('email')->toArray();
+        $newScheduleCreatedUser = new NewScheduleCreated($user, null, $peminjaman, $jadwal);
+        $newScheduleCreatedSuperadmin = new NewScheduleCreated($user, 'superadmin', $peminjaman, $jadwal);
+        
+        // Send email to the user
+        Mail::to($user->email)->send($newScheduleCreatedUser);
+        // Pass $peminjaman to the NewScheduleCreated Mailable
+
+        // Send email to the superadmin(s)
+        foreach ($superAdminEmails as $superAdminEmail) {
+            Mail::to($superAdminEmail)->send($newScheduleCreatedSuperadmin);
         }
 
         // Redirect ke halaman sukses
