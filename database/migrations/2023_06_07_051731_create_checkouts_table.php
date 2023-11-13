@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('peminjaman_id')->unsigned();
             $table->string('total_payment')->nullable();
-            $table->string('payment_status')->default('pending');
+            $table->string('payment_status')->default('menunggu pembayaran');
             $table->string('midtrans_url')->nullable();
             $table->string('midtrans_booking_code')->nullable();
             $table->timestamps();

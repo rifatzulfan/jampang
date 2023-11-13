@@ -54,64 +54,32 @@
                     </div>
                     <form id="myForm" enctype="multipart/form-data" class="form-submit d-lg-flex d-block">
                         <div class="left">
-                            <div class="col-12">
-                                <div class="row gx-2">
-
-                                    <div class="col-6">
-                                        <div class="input mb-3">
-                                            <p class="mb-2">
-                                                <label for="name">Atas Nama</label>
-                                            </p>
-                                            <input class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{$peminjaman->name}}" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input mb-3">
-                                            <p class="mb-2">
-                                                <label for="name">User Pengaju</label>
-                                            </p>
-                                            <input class="input-custom" type="text" placeholder="Masukan Nama kamu" value="{{$peminjaman->user->name}}" disabled />
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="input mb-3">
+                                <p class="mb-2">
+                                    <label for="name">Atas Nama</label>
+                                </p>
+                                <input name="name" id="name" class="input-custom" value="{{$peminjaman->name}}" readonly type="text" placeholder="Masukan Atas Nama peminjaman" />
                             </div>
-
-
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="phone">No Telp</label>
                                 </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->phone}}" disabled />
-                            </div>
-                            <div class="input mb-3">
-                                <p class="mb-2">
-                                    <label for="kegunaan">Instansi</label>
-                                </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->instansi->name}}" disabled />
-
+                                <input name="phone" id="phone" class="input-custom" value="{{$peminjaman->phone}}" readonly type="text" placeholder="Masukan nomor telepon kamu" />
                             </div>
                             <div class="input mb-3">
                                 <p class="mb-2">
                                     <label for="kegunaan">Kegunaan</label>
                                 </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->kegunaan->name}}" disabled />
+                                <input name="kegunaan" id="kegunaan" class="input-custom" value="{{$peminjaman->kegunaan}}" readonly type="text" placeholder="Ketikan kegunaan penyewaan" />
 
                             </div>
-
                             <div class="input mb-3">
                                 <p class="mb-2">
-                                    <label for="kegunaan">Kegunaan</label>
+                                    <label for="kegunaan">Status</label>
                                 </p>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <input class="input-custom" type="text" value="{{$peminjaman->surat}}" disabled />
-                                        </div>
-                                        <div class="col-3">
-                                            <a class="d-flex justify-content-center" style="padding-top: 16px;" href="{{ $path }}">Tampilkan </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <input name="status" id="status" class="input-custom" value="@foreach ($peminjaman->checkouts as $checkout){{ $checkout->payment_status }}
+@endforeach" readonly type="text" placeholder="Ketikan kegunaan penyewaan" />
+
                             </div>
 
 
@@ -120,60 +88,48 @@
                         <hr class="vhr d-none d-sm-block" />
                         <div class="right">
                             <div class="input mb-3">
-                                <p class="mb-2">
-                                    <label for="kegunaan">Status</label>
-                                </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->status}}" disabled />
-                            </div>
-                            @if ($peminjaman->status === 'ditolak')
-                            <div class="input mb-3">
-                                <p class="mb-2">
-                                    <label for="kegunaan">Pesan</label>
-                                </p>
-                                <input class="input-custom" type="text" value="{{$peminjaman->message}}" disabled />
-                            </div>
-                            @endif
-                            <div class="input mb-3">
                                 <div id="tanggal-container" class="mb-3">
-                                    @foreach ($peminjaman->jadwals as $jadwal)
                                     <div id="tanggal" class="field-input" style="margin-bottom: 8px">
                                         <div class="jh-input">
                                             <p class="mb-2">
-                                                <label for="">Jadwal {{$loop->iteration}}</label>
+                                                <label for="">Jadwal</label>
                                             </p>
                                         </div>
-                                        <div class="time-selector row gx-2 gy-2">
-                                            <div class="col-12 col-sm-4">
+                                        <div class="time-selector row gx-2">
+                                            <div class="col-12">
                                                 <p class="mb-2">
-                                                    <label for="tanggal1">Tanggal</label>
+                                                    <label for="tanggal1">Tanggal Mulai</label>
                                                 </p>
-                                                <input class="input-custom" type="text" value="{{$jadwal->tanggal}}" disabled />
-
+                                                <input type="text" name="tanggalmulai" class="input-custom datepicker mb-2 @error('tanggalmulai') is-invalid @enderror" id="date0" value="@foreach ($peminjaman->jadwals as $jadwal){{ $jadwal->tanggalmulai }}
+@endforeach" readonly placeholder="Pilih Tanggal" />
+                                                @error('tanggalmulai')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
-                                            <div class="col-sm-4 col-6">
+                                            <div class=" col-12">
                                                 <p class="mb-2">
-                                                    <label for="jammulai.1">Jam Mulai</label>
+                                                    <label for="tanggal1">Tanggal Selesai</label>
                                                 </p>
-                                                <input class="input-custom" type="text" value="{{$jadwal->jammulai}}" disabled />
-                                            </div>
-
-                                            <div class="col-sm-4 col-6">
-                                                <p class="mb-2">
-                                                    <label for="jamselesai.1">Selesai</label>
-                                                </p>
-                                                <input class="input-custom" type="text" value="{{$jadwal->jamselesai}}" disabled />
-
+                                                <input type="text" name="tanggalselesai" class="input-custom datepicker mb-2  @error('tanggalselesai') is-invalid @enderror" id="date1" value="@foreach ($peminjaman->jadwals as $jadwal){{ $jadwal->tanggalselesai }}
+@endforeach" readonly placeholder="Pilih Tanggal" />
+                                                @error('tanggalselesai')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
                                 </div>
                             </div>
+                        </div>
                     </form>
 
                 </div>
                 @if($peminjaman->staff_id != '')
-                <hr class="my-4">
+                <hr class=" my-4">
                 <div class="section-heading p-0">
                     <h4>Detail Sewa Staff</h4>
                 </div>

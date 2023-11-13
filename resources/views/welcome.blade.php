@@ -52,13 +52,13 @@
         <div class="hero-heading">
             <div class="hero-title">
                 <h1 class="text-white">
-                    Peminjaman Lapangan Voli Universitas Brawijaya
+                    Peminjaman Gedung Olahraga Pendowo
                 </h1>
             </div>
             <div class="hero-subtitle">
                 <p class="text-white">
-                    Sistem Peminjaman Lapangan Bola Voli Universitas Brawijaya
-                    dikelola oleh Unit Aktivitas Bola Voli Universitas Brawijaya
+                    Sistem Peminjaman Gedung Olahraga Pendowo
+                    dikelola oleh Unit Aktivitas Pemuda Pendowo
                 </p>
                 <div class="rectangle"></div>
             </div>
@@ -311,8 +311,6 @@
                 return {
                     html: '<div class="fc-content"><div class="fc-title">' +
                         eventTitle +
-                        '</div><div class="fc-additional-info">' +
-                        additionalInfo +
                         "</div></div>",
                 };
             },

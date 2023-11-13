@@ -70,11 +70,11 @@
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
-                                <th>Peminjaman</th>
+                                <th>Atas Nama</th>
                                 <th>Pengaju</th>
-                                <th>Staff</th>
-                                <th>Tarif</th>
-                                <th>Tanggal Transaksi</th>
+                                <th>Jadwal</th>
+                                <th>Total</th>
+                                <th>Tanggal Pengajuan</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -86,20 +86,26 @@
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->name}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->user->name}}</td>
-                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
-                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
+                                <td style="width: 140px;" class="">
+                                    @foreach ($checkout->peminjaman->jadwals as $jadwal)
+                                    <span class="">{{ $jadwal->tanggalmulai }}</span>
+                                    <span class="">-</span> <br>
+                                    <span class="">{{ $jadwal->tanggalselesai }}</span>
+                                    @endforeach
+                                </td>
+                                <td style="width: 140px;" class="">{{$checkout->total_payment}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->created_at->format('Y-m-d H:i:s')}}</td>
-                                <td class="">
-                                    <div class="badge {{ $checkout->payment_status == 'pending' ? 'warning' : ($checkout->payment_status == 'paid' ? 'success' : 'danger') }}">
-                                        <span>{{$checkout->payment_status}}</span>
+                                <td style="width: 128px;" class="text-end ">
+                                    <div class="d-flex justify-content-end">
+
+                                        <div class="{{ $checkout->payment_status == 'menunggu pembayaran' ? 'd-block' : ($checkout->payment_status == 'paid' ? 'success' : 'd-none') }}">
+                                            <a style="padding:4px 12px; font-size:small; cursor:pointer;" href="{{$checkout->midtrans_url}}" class="btn-primary-2 text-white ">Bayar</a>
+                                        </div>
+                                        <a href="{{route('transaksi.show',$checkout->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
+                                            <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
+                                        </a>
                                     </div>
                                 </td>
-                                <td style="width: 128px;" class="text-end">
-
-                                    <a href="{{route('transaksi.show',$checkout->id)}}" class="mx-0 mx-sm-3" style="color:transparent;">
-                                        <img src="{{asset('images/show.svg')}}" style="cursor: pointer" alt="" />
-                                    </a>
-
                             </tr>
                             @endforeach
                         </tbody>

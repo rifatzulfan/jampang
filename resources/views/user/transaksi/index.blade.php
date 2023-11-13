@@ -71,9 +71,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Atas Nama</th>
-                                <th>Staff</th>
-                                <th>Tarif</th>
-                                <th>Tanggal Transaksi</th>
+                                <th>Pengaju</th>
+                                <th>Jadwal</th>
+                                <th>Total</th>
+                                <th>Tanggal Pengajuan</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -83,8 +84,15 @@
                             <tr>
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td style="width: 140px;" class="">{{$checkout->peminjaman->name}}</td>
-                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->name}}</td>
-                                <td style="width: 140px;" class="">{{$checkout->peminjaman->staff->price}}</td>
+                                <td style="width: 140px;" class="">{{$checkout->peminjaman->user->name}}</td>
+                                <td style="width: 140px;" class="">
+                                    @foreach ($checkout->peminjaman->jadwals as $jadwal)
+                                    <span class="">{{ $jadwal->tanggalmulai }}</span>
+                                    <span class="">-</span> <br>
+                                    <span class="">{{ $jadwal->tanggalselesai }}</span>
+                                    @endforeach
+                                </td>
+                                <td style="width: 140px;" class="">{{$checkout->total_payment}}</td>
                                 <td style="width: 140px;" class="">{{$checkout->created_at->format('Y-m-d H:i:s')}}</td>
                                 <td class="">
                                     <div class="badge {{ $checkout->payment_status == 'pending' ? 'warning' : ($checkout->payment_status == 'paid' ? 'success' : 'danger') }}">
@@ -93,7 +101,7 @@
                                 </td>
                                 <td style="width: 128px;" class="text-end">
 
-                                    @if ($checkout->payment_status === 'pending')
+                                    @if ($checkout->payment_status === 'menunggu pembayaran')
                                     <button class="btn-bayar my-3 my-sm-0">
                                         <a style="color: white; text-decoration:none;" href="{{$checkout->midtrans_url}}">
                                             Bayar
