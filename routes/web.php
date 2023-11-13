@@ -56,9 +56,6 @@ Route::prefix('/dashboard-admin')->middleware(['auth', 'role:Admin,Superadmin'])
     Route::get('/peminjaman/{id}', [AdminPeminjamanController::class, 'show'])->name('peminjaman.show');
     Route::put('/peminjaman/{id}', [AdminPeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/peminjaman/{id}', [AdminPeminjamanController::class, 'delete'])->name('peminjaman.destroy');
-    Route::resource('kegunaan', KegunaanController::class);
-    Route::resource('staff', StaffController::class);
-    Route::resource('instansi', InstansiController::class);
     Route::resource('transaksi', AdminTransaksiController::class);
 });
 
@@ -83,7 +80,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'role:User'])->group(function (
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi-user.index');
     Route::get('/transaksi/{id}', [TransaksiController::class, 'show'])->name('transaksi-user.show');
 });
-Route::get('/success', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
+Route::get('/success/{id}', [SuksesPageController::class, 'index'])->name('success.index')->middleware('auth');
 
 Route::get('payment/success', [SewaController::class, 'midtransCallback']);
 Route::post('payment/success', [SewaController::class, 'midtransCallback']);

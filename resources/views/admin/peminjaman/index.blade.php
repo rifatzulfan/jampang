@@ -77,7 +77,6 @@
                                 <th>Phone</th>
                                 <th>Kegunaan</th>
                                 <th>Tanggal</th>
-                                <th>Jam</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -88,20 +87,19 @@
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td style="width: 140px;" class="">{{$peminjaman->name}}</td>
                                 <td class="">{{$peminjaman->phone}}</td>
-                                <td class="">{{$peminjaman->kegunaan->name}}</td>
+                                <td class="">{{$peminjaman->kegunaan}}</td>
                                 <td class="">
                                     @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class="">{{$jadwal->tanggal}}</span> <br>
-                                    @endforeach
-                                </td>
-                                <td class="">
-                                    @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class=""> {{$jadwal->jammulai}} - {{$jadwal->jamselesai}}</span> <br>
+                                    <span class="">{{ $jadwal->tanggalmulai }}</span>
+                                    <span class="">-</span> <br>
+                                    <span class="">{{ $jadwal->tanggalselesai }}</span>
                                     @endforeach
                                 </td>
                                 <td class="">
                                     <div class="badge {{ $peminjaman->status == 'diproses' ? 'warning' : ($peminjaman->status == 'diterima' ? 'success' : 'danger') }}">
-                                        <span>{{$peminjaman->status}}</span>
+                                        @foreach ($peminjaman->checkouts as $checkout)
+                                        <span>{{ $checkout->payment_status }}</span>
+                                        @endforeach
                                     </div>
                                 </td>
                                 <td style="width: 128px;" class="text-end">

@@ -31,7 +31,7 @@
                         </div>
                     </form>
                     <div class="action">
-                    <form class=" mx-0 mx-sm-1" action="{{ route('peminjaman-user.index') }}" method="GET">
+                        <form class=" mx-0 mx-sm-1" action="{{ route('peminjaman-user.index') }}" method="GET">
                             <label class="dropdown">
                                 <div class="dd-button">
                                     <img width="22" height="22" src="{{ asset('images/Filter.svg') }}" alt="" />
@@ -78,7 +78,6 @@
                                 <th>Phone</th>
                                 <th>Kegunaan</th>
                                 <th>Tanggal</th>
-                                <th>Jam</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -89,20 +88,19 @@
                                 <th style="width: 48px;" scope="row">{{$loop->iteration}}</th>
                                 <td style="width: 140px;" class="">{{$peminjaman->name}}</td>
                                 <td class="">{{$peminjaman->phone}}</td>
-                                <td class="">{{$peminjaman->kegunaan->name}}</td>
+                                <td class="">{{$peminjaman->kegunaan}}</td>
                                 <td class="">
                                     @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class="">{{$jadwal->tanggal}}</span> <br>
-                                    @endforeach
-                                </td>
-                                <td class="">
-                                    @foreach ($peminjaman->jadwals as $jadwal)
-                                    <span class=""> {{$jadwal->jammulai}} - {{$jadwal->jamselesai}}</span> <br>
+                                    <span class="">{{ $jadwal->tanggalmulai }}</span>
+                                    <span class="">-</span> <br>
+                                    <span class="">{{ $jadwal->tanggalselesai }}</span>
                                     @endforeach
                                 </td>
                                 <td class="">
                                     <div class="badge {{ $peminjaman->status == 'diproses' ? 'warning' : ($peminjaman->status == 'diterima' ? 'success' : 'danger') }}">
-                                        <span>{{$peminjaman->status}}</span>
+                                        @foreach ($peminjaman->checkouts as $checkout)
+                                        <span>{{ $checkout->payment_status }}</span>
+                                        @endforeach
                                     </div>
                                     @if($peminjaman->status == 'ditolak')
                                     <img src="{{asset('images/info-red.svg')}}" data-toggle="tooltip" data-bs-custom-class="tooltip" title="{{$peminjaman->message}}" class="mr-1" alt="">

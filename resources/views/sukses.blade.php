@@ -14,16 +14,38 @@
         <div class="wrapper">
             <div class="success-card mx-auto text-center">
                 <img src="{{asset('images/success-state.png')}}" alt="" class="img-success mx-auto mb-4" />
-                <h2>HORAYYYY!!!!</h2>
-                <p class="mb-5">
-                    Horay peminjaman sukses diajukan cek dashboard untuk lihat status
-                    peminjaman kamu
+                <h4>Total Bayar : @foreach ($peminjaman->checkouts as $checkout)
+                    {{ $checkout-> total_payment }}
+                    @endforeach
+                </h4>
+                <hr>
+                <p class="mb-1">
+                    Peminjaman Gor Pendowo dengan detail berikut
                 </p>
-                @if(Auth::user()->role == 'User')
-                <a href="{{ route('peminjaman-user.index') }}" class="btn-primary-2 mt-2 d-block">Cek Status</a>
-                @elseif(Auth::user()->role == 'Admin' || Auth::user()->role == 'Superadmin')
-                <a href="{{ route('peminjaman.index') }}" class="btn-primary-2 mt-2 d-block">Cek Status</a>
-                @endif
+                <hr>
+                <div class="d-flex justify-content-between mb-2">
+                    <p class="">Atas Nama</p>
+                    <p style="font-weight: bold;" class="">{{$peminjaman->name}}</p>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <p class="">Kegunaan</p>
+                    <p style="font-weight: bold;" class="">{{$peminjaman->kegunaan}}</p>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <p class="">Asal</p>
+                    <p style="font-weight: bold;" class="">{{$peminjaman->asal}}</p>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <p class="">Jadwal</p>
+                    <p style="font-weight: bold;" class="">@foreach ($peminjaman->jadwals as $jadwal)
+                        {{ $jadwal->tanggalmulai }} - {{$jadwal->tanggalselesai}}
+                        @endforeach
+                    </p>
+                </div>
+                <a href=" @foreach ($peminjaman->checkouts as $checkout)
+                    {{ $checkout-> midtrans_url }}
+                    @endforeach" class="btn-primary-2 mt-2 d-block">Bayar</a>
+
             </div>
         </div>
     </div>

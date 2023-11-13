@@ -10,7 +10,7 @@ class Jadwal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tanggal', 'jammulai', 'jamselesai'
+        'tanggalmulai', 'tanggalselesai'
     ];
 
     public function peminjaman()

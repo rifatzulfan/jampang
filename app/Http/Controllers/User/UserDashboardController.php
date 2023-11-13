@@ -44,18 +44,14 @@ class UserDashboardController extends Controller
 
     public function show($id)
     {
-        $staffs = Staff::all();
 
         $peminjaman = Peminjaman::with('jadwals')->find($id);
         if (!$peminjaman) {
             abort(404);
         }
 
-        $pdfPath = $peminjaman->surat;
-
-        $path = url('storage/' . $pdfPath);
         // Mengembalikan view bersama dengan data $peminjaman
-        return view('user.peminjaman.detail', compact('peminjaman', 'pdfPath', 'path', 'staffs'));
+        return view('user.peminjaman.detail', compact('peminjaman'));
     }
 
     public function cancelPeminjaman($id)

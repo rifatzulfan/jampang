@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('peminjaman_id')->unsigned();
-            $table->date('tanggal');
-            $table->string('jammulai');
-            $table->string('jamselesai');
+            $table->date('tanggalmulai');
+            $table->date('tanggalselesai');
             $table->timestamps();
         });
     }
