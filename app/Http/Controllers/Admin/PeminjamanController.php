@@ -63,11 +63,17 @@ class PeminjamanController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'kegunaan' => 'required',
+            'asal' => 'required',
             'tanggalmulai' => [
                 'required',
                 'date',
-                function ($attribute, $value, $fail) {
-                    $jadwal = Jadwal::where('tanggalmulai', $value)
+                function ($attribute, $value, $fail) use ($request) {
+                    $tanggalselesai = $request->input('tanggalselesai');
+
+                    $jadwal = Jadwal::where(function ($query) use ($value, $tanggalselesai) {
+                        $query->whereBetween('tanggalmulai', [$value, $tanggalselesai])
+                            ->orWhereBetween('tanggalselesai', [$value, $tanggalselesai]);
+                    })
                         ->whereHas('peminjaman', function ($query) {
                             $query->whereHas('checkouts', function ($checkoutQuery) {
                                 $checkoutQuery->where('payment_status', 'paid');
@@ -79,6 +85,10 @@ class PeminjamanController extends Controller
                         $fail("Tanggal ini telah di book, pilih tanggal lain!");
                     }
                 },
+            ],
+            'tanggalselesai' => [
+                'required',
+                'date',
             ],
         ]);
 

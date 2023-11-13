@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>JAMPANG | UABVUB</title>
-    <link rel="stylesheet" href="{{ secure_asset('css/styles.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ secure_asset('css/home.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ secure_asset('css/auth.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ secure_asset('css/form-pinjam.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ secure_asset('css/success-page.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ secure_asset('css/admin/dashboard.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/form-pinjam.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/success-page.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}" type="text/css">
 
 
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet" />
