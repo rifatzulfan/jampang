@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JAMPANG | UABVUB</title>
+    <title>BUJANA PURI</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css">
