@@ -44,7 +44,7 @@
                 </div>
                 <a href=" @foreach ($peminjaman->checkouts as $checkout)
                     {{ $checkout-> midtrans_url }}
-                    @endforeach" class="btn-primary-2 mt-2 d-block">Bayar</a>
+                    @endforeach" target="_blank" class="btn-primary-2 mt-2 d-block">Bayar</a>
 
             </div>
         </div>

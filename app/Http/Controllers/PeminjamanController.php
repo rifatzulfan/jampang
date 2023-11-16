@@ -86,10 +86,8 @@ class PeminjamanController extends Controller
                         $query->whereBetween('tanggalmulai', [$value, $tanggalselesai])
                             ->orWhereBetween('tanggalselesai', [$value, $tanggalselesai]);
                     })
-                        ->whereHas('peminjaman', function ($query) {
-                            $query->whereHas('checkouts', function ($checkoutQuery) {
-                                $checkoutQuery->where('payment_status', 'paid');
-                            });
+                        ->whereHas('peminjaman.checkouts', function ($query) {
+                            $query->where('payment_status', 'paid');
                         })
                         ->first();
 
